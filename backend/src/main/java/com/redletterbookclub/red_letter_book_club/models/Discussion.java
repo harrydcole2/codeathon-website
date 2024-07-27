@@ -25,7 +25,7 @@ public class Discussion {
     @Column(columnDefinition = "TEXT")
     private String content;
 
-    @Column(name = "contentQuill", columnDefinition = "TEXT")
+    @Column(name = "content_quill", columnDefinition = "TEXT")
     private String contentQuill;
 
     @Column(nullable = false)

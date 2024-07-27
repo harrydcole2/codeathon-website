@@ -21,7 +21,7 @@ public class Book {
     @Column(columnDefinition = "TEXT")
     private String description;
 
-    @Column(name = "descriptionQuill", columnDefinition = "TEXT")
+    @Column(name = "description_quill", columnDefinition = "TEXT")
     private String descriptionQuill;
 
     @Column(length = 20)
@@ -34,8 +34,11 @@ public class Book {
     @Column(nullable = false)
     private boolean archived;
 
-    @Column(name = "datePublished")
+    @Column(name = "date_published")
     private LocalDate datePublished;
+
+    @Column(name = "genre", length = 255)
+    private String genre;
 
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;
@@ -105,6 +108,14 @@ public class Book {
 
     public void setArchived(boolean archived) {
         this.archived = archived;
+    }
+
+    public String getGenre() {
+        return genre;
+    }
+
+    public void setGenre(String genre) {
+        this.genre = genre;
     }
 
     public LocalDate getDatePublished() {
