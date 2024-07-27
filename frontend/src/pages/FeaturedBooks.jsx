@@ -1,8 +1,13 @@
+import { Container } from "@mui/material"
+
 const FeaturedBooks = () => {
   return (
-    <h1>
+    <Container>
+      <h1>
         Featured Books:
-    </h1>
+      </h1>
+    </Container>
+    
   )
 }
 
