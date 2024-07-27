@@ -1,4 +1,5 @@
 import { Container } from "@mui/material"
+import BookCarousel from "../components/BookCarousel"
 
 const FeaturedBooks = () => {
   return (
@@ -6,6 +7,7 @@ const FeaturedBooks = () => {
       <h1>
         Featured Books:
       </h1>
+      <BookCarousel/>
     </Container>
     
   )
