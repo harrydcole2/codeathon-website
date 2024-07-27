@@ -1,23 +1,28 @@
-import * as React from 'react';
-import PropTypes from 'prop-types';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import CssBaseline from '@mui/material/CssBaseline';
-import Divider from '@mui/material/Divider';
-import Drawer from '@mui/material/Drawer';
-import IconButton from '@mui/material/IconButton';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemText from '@mui/material/ListItemText';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import { NavLink } from 'react-router-dom';
-import "../App.css"
-import Iconify from "./Iconify"
+import * as React from "react";
+import AppBar from "@mui/material/AppBar";
+import Box from "@mui/material/Box";
+import CssBaseline from "@mui/material/CssBaseline";
+import Divider from "@mui/material/Divider";
+import Drawer from "@mui/material/Drawer";
+import IconButton from "@mui/material/IconButton";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemText from "@mui/material/ListItemText";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
+import { NavLink } from "react-router-dom";
+import "../App.css";
+import Iconify from "./Iconify";
 
 const drawerWidth = 240;
-const navItems = ['Featured Books', 'Past Picks', 'Discussions', 'Store', 'About'];
+const navItems = [
+  "Featured Books",
+  "Past Picks",
+  "Discussions",
+  "Store",
+  "About",
+];
 
 function NavBar(props) {
   const { window } = props;
@@ -28,7 +33,7 @@ function NavBar(props) {
   };
 
   const drawer = (
-    <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
+    <Box onClick={handleDrawerToggle} sx={{ textAlign: "center" }}>
       <Typography variant="h6" sx={{ my: 2 }}>
         MUI
       </Typography>
@@ -36,7 +41,7 @@ function NavBar(props) {
       <List>
         {navItems.map((item) => (
           <ListItem key={item} disablePadding>
-            <ListItemButton sx={{ textAlign: 'center' }}>
+            <ListItemButton sx={{ textAlign: "center" }}>
               <ListItemText primary={item} />
             </ListItemButton>
           </ListItem>
@@ -45,10 +50,11 @@ function NavBar(props) {
     </Box>
   );
 
-  const container = window !== undefined ? () => window().document.body : undefined;
+  const container =
+    window !== undefined ? () => window().document.body : undefined;
 
   return (
-    <Box sx={{ display: 'flex' }}>
+    <Box sx={{ display: "flex" }}>
       <CssBaseline />
       <AppBar component="nav">
         <Toolbar>
@@ -57,27 +63,35 @@ function NavBar(props) {
             aria-label="open drawer"
             edge="start"
             onClick={handleDrawerToggle}
-            sx={{ mr: 2, display: { sm: 'none' } }}
+            sx={{ mr: 2, display: { sm: "none" } }}
           >
             {/* <MenuIcon /> */}
           </IconButton>
           <Typography
             variant="h6"
             component="div"
-            sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
+            sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
           >
-        <Iconify icon="solar:book-2-linear" sx={{color:"red", width: 50, height: 70 }}/>
-                                        
+            <Iconify
+              icon="solar:book-2-linear"
+              sx={{ color: "red", width: 50, height: 70 }}
+            />
           </Typography>
-          <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
+          <Box sx={{ display: { xs: "none", sm: "block" } }}>
             {navItems.map((item) => (
-              <NavLink key={item} 
-              to={item === 'Featured Books' ? '/' : `/${item.replace(' ', '').toLowerCase()}`} 
-              style={({ isActive }) => ({
-                color: isActive ? 'red' : 'white',
-                textDecoration: 'none',
-                padding: '8px'
-              })}>
+              <NavLink
+                key={item}
+                to={
+                  item === "Featured Books"
+                    ? "/"
+                    : `/${item.replace(" ", "").toLowerCase()}`
+                }
+                style={({ isActive }) => ({
+                  color: isActive ? "red" : "white",
+                  textDecoration: "none",
+                  padding: "8px",
+                })}
+              >
                 {item}
               </NavLink>
             ))}
@@ -94,8 +108,11 @@ function NavBar(props) {
             keepMounted: true, // Better open performance on mobile.
           }}
           sx={{
-            display: { xs: 'block', sm: 'none' },
-            '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
+            display: { xs: "block", sm: "none" },
+            "& .MuiDrawer-paper": {
+              boxSizing: "border-box",
+              width: drawerWidth,
+            },
           }}
         >
           {drawer}
@@ -107,13 +124,5 @@ function NavBar(props) {
     </Box>
   );
 }
-
-NavBar.propTypes = {
-  /**
-   * Injected by the documentation to work in an iframe.
-   * You won't need it on your project.
-   */
-  window: PropTypes.func,
-};
 
 export default NavBar;
