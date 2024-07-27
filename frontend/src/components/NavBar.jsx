@@ -14,6 +14,7 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import { NavLink } from 'react-router-dom';
 import "../App.css"
+import Iconify from "./Iconify"
 
 const drawerWidth = 240;
 const navItems = ['Featured Books', 'Past Picks', 'Discussions', 'Store', 'About'];
@@ -65,11 +66,18 @@ function NavBar(props) {
             component="div"
             sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
           >
-            Insert Logo
+        <Iconify icon="solar:book-2-linear" sx={{color:"red", width: 50, height: 70 }}/>
+                                        
           </Typography>
           <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
             {navItems.map((item) => (
-              <NavLink key={item} to={item === 'Featured Books' ? '/' : `/${item.replace(' ', '').toLowerCase()}`} className="navLink">
+              <NavLink key={item} 
+              to={item === 'Featured Books' ? '/' : `/${item.replace(' ', '').toLowerCase()}`} 
+              style={({ isActive }) => ({
+                color: isActive ? 'red' : 'white',
+                textDecoration: 'none',
+                padding: '8px'
+              })}>
                 {item}
               </NavLink>
             ))}
