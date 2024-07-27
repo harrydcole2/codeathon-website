@@ -25,7 +25,7 @@ CREATE TABLE users (
 
 -- Books Table
 CREATE TABLE books (
-    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    id INT AUTO_INCREMENT PRIMARY KEY,
     title VARCHAR(100) NOT NULL,
     author VARCHAR(100) NOT NULL,
     description TEXT,
