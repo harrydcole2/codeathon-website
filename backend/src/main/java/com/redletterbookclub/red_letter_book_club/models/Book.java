@@ -28,6 +28,7 @@ public class Book {
     private String isbn;
 
     @Lob
+    //@Type(type="org.hibernate.type.BinaryType") // TODO: is this necessary?
     private byte[] picture;
 
     @Column(nullable = false)

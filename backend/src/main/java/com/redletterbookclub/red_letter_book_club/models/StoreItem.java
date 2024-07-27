@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "StoreItems")
+@Table(name = "storeitems")
 public class StoreItem {
 
     @Id
@@ -19,6 +19,7 @@ public class StoreItem {
     private String description;
 
     @Lob
+    //@Type(type="org.hibernate.type.BinaryType") // TODO: is this necessary?
     private byte[] picture;
 
     @Column(nullable = false)
