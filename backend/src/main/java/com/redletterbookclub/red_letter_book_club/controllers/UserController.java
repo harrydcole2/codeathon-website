@@ -46,11 +46,11 @@ public class UserController {
     }
 
     @GetMapping("/login")
-    public ResponseEntity<?> login(@RequestParam String username, @RequestParam String password) {
-        User user = userRepository.findByUsername(username).orElse(null);
+    public ResponseEntity<?> login(@RequestParam String email, @RequestParam String password) {
+        User user = userRepository.findByUsername(email).orElse(null);
 
         if (user != null && passwordEncoder.matches(password, user.getPassword())) {
-            String token = tokenUtil.generateToken(username, user.getRole().getName());
+            String token = tokenUtil.generateToken(email, user.getRole().getName());
             UserDTO userDTO = convertToDTO(user);
             userDTO.setToken(token);
             return ResponseEntity.ok(userDTO);
@@ -61,11 +61,12 @@ public class UserController {
 
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody User user) {
-        if (userRepository.findByUsername(user.getUsername()).isPresent()) {
+        if (userRepository.findByUsername(user.getEmail()).isPresent()) {
             return ResponseEntity.badRequest().body("Username already exists");
         }
 
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setUsername(user.getEmail());
 
         Role userRole = roleRepository.findByName("USER").orElse(null);
         if (userRole == null) {
@@ -74,7 +75,7 @@ public class UserController {
         user.setRole(userRole);
 
         User savedUser = userRepository.saveAndFlush(user);
-        String token = tokenUtil.generateToken(savedUser.getUsername(), "USER");
+        String token = tokenUtil.generateToken(savedUser.getEmail(), "USER");
 
         UserDTO userDTO = convertToDTO(savedUser);
         userDTO.setToken(token);
@@ -85,7 +86,7 @@ public class UserController {
     private UserDTO convertToDTO(User user) {
         return new UserDTO(
                 user.getId(),
-                user.getUsername(),
+                user.getEmail(), //always same as username
                 user.getEmail(),
                 user.getPreferredName(),
                 user.getRole().getName(),

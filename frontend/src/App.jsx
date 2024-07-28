@@ -24,8 +24,8 @@ function App() {
           <Route path="/discussions" element={<Discussions />} />
           <Route path="/store" element={<Store />} />
           <Route path="/about" element={<About />} />
-          <Route path="/loginPage" element={<LoginPage />} />
-          <Route path="/signUp" element={<SignUpPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<SignUpPage />} />
         </Routes>
       </ErrorBoundary>
     </QueryClientProvider>

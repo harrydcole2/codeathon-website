@@ -1,4 +1,4 @@
-import {useState} from "react";
+import { useContext, useState } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -11,10 +11,11 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-import { NavLink, useNavigate} from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import "../index.css";
 import Iconify from "./Iconify";
 import { Button } from "@mui/material";
+import { AppContext } from "./AppContext";
 
 const drawerWidth = 240;
 const navItems = [
@@ -25,24 +26,21 @@ const navItems = [
   "About",
 ];
 
-
-
 function NavBar(props) {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [loginStatus, setLoginStatus] = useState(false);
   const navigate = useNavigate();
+  const { role, setToken, setRole } = useContext(AppContext);
 
   const handleLoginStatusChange = () => {
-    setLoginStatus(prevStatus => !prevStatus);
-    if (loginStatus) {
-      navigate('/')
+    if (role) {
+      setToken("");
+      setRole("");
+      navigate("/");
     } else {
-      navigate('/loginPage')
+      navigate("/login");
     }
-  }
-
-
+  };
 
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
@@ -80,8 +78,7 @@ function NavBar(props) {
             edge="start"
             onClick={handleDrawerToggle}
             sx={{ mr: 2, display: { sm: "none" } }}
-          >
-          </IconButton>
+          ></IconButton>
           <Typography
             variant="h6"
             component="div"
@@ -111,11 +108,13 @@ function NavBar(props) {
               </NavLink>
             ))}
           </Box>
-          <Button 
-          variant="contained"
-          color="secondary"
-          onClick={handleLoginStatusChange}
-          >{loginStatus ? "Logout" : "Login"}</Button>
+          <Button
+            variant="contained"
+            color="secondary"
+            onClick={handleLoginStatusChange}
+          >
+            {!role ? "Login" : "Logout"}
+          </Button>
         </Toolbar>
       </AppBar>
       <nav>

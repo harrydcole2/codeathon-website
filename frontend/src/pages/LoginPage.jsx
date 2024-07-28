@@ -1,29 +1,49 @@
-import { useState } from 'react';
-import { Box, TextField, Button, Typography, Container } from '@mui/material';
-import { Link} from 'react-router-dom';
+import { useState } from "react";
+import {
+  Box,
+  TextField,
+  Button,
+  Typography,
+  Container,
+  CircularProgress,
+} from "@mui/material";
+import { Link } from "react-router-dom";
+import { useLoginUser } from "../hooks/users";
 
 const LoginPage = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-  const handleSubmit = (e) => {
+  const loginMutation = useLoginUser();
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle sign in logic here
+    loginMutation.mutate({ email, password }); // TODO: Snackbar notification
   };
+
+  if (loginMutation.isLoading) {
+    return (
+      <Container maxWidth="xs">
+        <Box sx={{ display: "flex", justifyContent: "center", mt: 8 }}>
+          <CircularProgress />
+        </Box>
+      </Container>
+    );
+  }
 
   return (
     <Container maxWidth="xs">
       <Box
         sx={{
           marginTop: 8,
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
         }}
       >
         <Typography component="h1" variant="h5">
           Sign In
-        </Typography>    
+        </Typography>
 
         <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }}>
           <TextField
@@ -52,6 +72,11 @@ const LoginPage = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
+          {loginMutation.isError && (
+            <Typography color="error" sx={{ mt: 2 }}>
+              {loginMutation.error.message}
+            </Typography>
+          )}
           <Button
             type="submit"
             fullWidth
@@ -61,7 +86,7 @@ const LoginPage = () => {
           >
             Sign In
           </Button>
-          <Link to="/signUp" variant="body2">
+          <Link to="/register" variant="body2">
             {"Don't have an account? Sign up here!"}
           </Link>
         </Box>

@@ -1,6 +1,9 @@
 import { useQuery, useMutation, useQueryClient } from "react-query";
 import { ObjectToQueryString } from "../services/uri";
 import api from "../services/api";
+import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { AppContext } from "../components/AppContext";
 
 // User API methods (not exposed out of this class)
 
@@ -15,7 +18,6 @@ const addUser = async (newUser) => {
 };
 
 const validateUser = async (credentials) => {
-  console.log("validate user", credentials);
   const { data } = await api.get(
     `/user/login?${ObjectToQueryString(credentials)}`
   );
@@ -32,18 +34,33 @@ export const useGetUsers = () => {
 export const useRegisterUser = () => {
   const queryClient = useQueryClient();
 
+  const navigate = useNavigate();
+  const { setToken, setRole } = useContext(AppContext);
+
   return useMutation(addUser, {
-    onSuccess: () => {
-      //TODO: is there anything worth invalidating?
+    onSuccess: (data) => {
+      console.log("Successful registration", data);
+
       queryClient.invalidateQueries(["users"]);
-      return;
+
+      setToken(data.token);
+      setRole(data.roleName);
+      navigate("/");
     },
   });
 };
 
-export const useLoginUser = (credentials) => {
-  console.log(credentials);
-  return useQuery(["user", { ...credentials.username }], () =>
-    validateUser(credentials)
-  );
+export const useLoginUser = () => {
+  const navigate = useNavigate();
+  const { setToken, setRole } = useContext(AppContext);
+
+  return useMutation((credentials) => validateUser(credentials), {
+    onSuccess: (data) => {
+      console.log("Successful login", data);
+
+      setToken(data.token);
+      setRole(data.roleName);
+      navigate("/");
+    },
+  });
 };
