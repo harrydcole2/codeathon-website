@@ -1,5 +1,13 @@
-import { useState } from "react";
-import { Card, CardContent, CardMedia, Typography, Box, Button, Container } from "@mui/material";
+import { useState, useEffect } from "react";
+import {
+  Card,
+  CardContent,
+  CardMedia,
+  Typography,
+  Box,
+  Button,
+  Container,
+} from "@mui/material";
 import Carousel from "react-spring-3d-carousel";
 import { config } from "react-spring";
 import { Link } from "react-router-dom";
@@ -8,22 +16,43 @@ import Review from "./Review";
 const BookCarousel = ({ books, reviews }) => {
   const [goToSlide, setGoToSlide] = useState(0);
   const [expanded, setExpanded] = useState(false);
+  const [carouselHeight, setCarouselHeight] = useState(350);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
 
+  useEffect(() => {
+    setCarouselHeight(expanded ? 700 : 350);
+  }, [expanded]);
+
   const slides = books.map((book, index) => ({
     key: index,
     content: (
-      <Card sx={{ display: "flex", width: "50vw", height: expanded ? 'auto' : "50vh", transition: "height 0.3s" }}>
+      <Card
+        sx={{
+          display: "flex",
+          width: "50vw",
+          height: expanded ? "auto" : "50vh",
+          maxHeight: expanded ? "70vh" : "50vh",
+          overflow: "auto",
+          transition: "all 0.3s",
+        }}
+      >
         <CardMedia
           component="img"
-          sx={{ width: 300 }}
+          sx={{ width: 300, height: "100%", objectFit: "cover" }}
           image={book.coverImage}
           alt={book.title}
         />
-        <Box sx={{ display: "flex", flexDirection: "column", flexGrow: 1 }}>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            flexGrow: 1,
+            overflow: "auto",
+          }}
+        >
           <CardContent sx={{ flex: "1 0 auto" }}>
             <Typography component="div" variant="h5">
               {book.title}
@@ -59,16 +88,20 @@ const BookCarousel = ({ books, reviews }) => {
             </Typography>
           </CardContent>
           {expanded && (
-            <Box sx={{ mt: 2 }}>
+            <Box sx={{ mt: 2, px: 2, pb: 2 }}>
               {reviews.map((review) => (
-                <Review key={review.id} value={review.value} review={review.review} />
+                <Review
+                  key={review.id}
+                  value={review.value}
+                  review={review.review}
+                />
               ))}
             </Box>
           )}
           <Button
             variant="outlined"
             onClick={handleExpandClick}
-            sx={{ mt: 2, alignSelf: 'flex-start' }}
+            sx={{ mt: 2, mb: 2, mx: 2, alignSelf: "flex-start" }}
           >
             {expanded ? "Close Reviews" : "See Reviews"}
           </Button>
@@ -79,7 +112,14 @@ const BookCarousel = ({ books, reviews }) => {
   }));
 
   return (
-    <Container sx={{ width: "100%", height: expanded ? 'auto' : 500, position: "relative" }}>
+    <Container
+      sx={{
+        width: "100%",
+        height: carouselHeight,
+        position: "relative",
+        transition: "height 0.3s",
+      }}
+    >
       <Carousel
         slides={slides}
         goToSlide={goToSlide}
