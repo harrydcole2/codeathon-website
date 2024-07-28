@@ -6,7 +6,6 @@ import com.redletterbookclub.red_letter_book_club.repositories.UserRepository;
 import com.redletterbookclub.red_letter_book_club.repositories.RoleRepository;
 import com.redletterbookclub.red_letter_book_club.utils.TokenUtil;
 import com.redletterbookclub.red_letter_book_club.dtos.UserDTO;
-import org.antlr.v4.runtime.Token;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
