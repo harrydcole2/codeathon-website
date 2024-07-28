@@ -16,6 +16,7 @@ import "../index.css";
 import Iconify from "./Iconify";
 import { Button } from "@mui/material";
 import { AppContext } from "./AppContext";
+import MenuIcon from "@mui/material/Menu";
 
 const drawerWidth = 240;
 const navItems = [
@@ -68,17 +69,19 @@ function NavBar(props) {
     window !== undefined ? () => window().document.body : undefined;
 
   return (
-    <Box sx={{ display: "flex" }}>
+    <Box sx={{ display: "flex", flexDirection: "column" }}>
       <CssBaseline />
-      <AppBar component="nav">
-        <Toolbar>
+      <AppBar component="nav" sx={{ bgcolor: "#EDB183", position: "fixed" }}>
+        <Toolbar sx={{ height: 80 }}>
           <IconButton
             color="inherit"
             aria-label="open drawer"
             edge="start"
             onClick={handleDrawerToggle}
             sx={{ mr: 2, display: { sm: "none" } }}
-          ></IconButton>
+          >
+            <MenuIcon />
+          </IconButton>
           <Typography
             variant="h6"
             component="div"
@@ -86,31 +89,42 @@ function NavBar(props) {
           >
             <Iconify
               icon="solar:book-2-linear"
-              sx={{ color: "red", width: 50, height: 70 }}
+              sx={{ color: "#F15152", width: 50, height: 70 }}
             />
           </Typography>
           <Box sx={{ display: { xs: "none", sm: "block" } }}>
             {navItems.map((item) => (
-              <NavLink
+              <Button
                 key={item}
+                component={NavLink}
                 to={
                   item === "Featured Books"
                     ? "/"
                     : `/${item.replace(" ", "").toLowerCase()}`
                 }
-                style={({ isActive }) => ({
-                  color: isActive ? "red" : "white",
-                  textDecoration: "none",
-                  padding: "8px",
-                })}
+                sx={{
+                  color: "black",
+                  bgcolor: "#F15152",
+                  fontWeight: "bold",
+                  mx: 1,
+                  "&:hover": {
+                    bgcolor: "#D13132",
+                  },
+                  "&.active": {
+                    bgcolor: "#D13132",
+                  },
+                }}
               >
                 {item}
-              </NavLink>
+              </Button>
             ))}
           </Box>
           <Button
             variant="contained"
-            color="secondary"
+            sx={{
+              bgcolor: "#1E555C",
+              mx: 2,
+            }}
             onClick={handleLoginStatusChange}
           >
             {!role ? "Login" : "Logout"}
@@ -124,7 +138,7 @@ function NavBar(props) {
           open={mobileOpen}
           onClose={handleDrawerToggle}
           ModalProps={{
-            keepMounted: true, // Better open performance on mobile.
+            keepMounted: true,
           }}
           sx={{
             display: { xs: "block", sm: "none" },
@@ -137,7 +151,7 @@ function NavBar(props) {
           {drawer}
         </Drawer>
       </nav>
-      <Box component="main" sx={{ p: 3 }}>
+      <Box component="main" sx={{ p: 3, mt: 10 }}>
         <Toolbar />
       </Box>
     </Box>
