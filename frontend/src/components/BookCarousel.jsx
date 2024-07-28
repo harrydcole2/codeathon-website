@@ -96,6 +96,13 @@ const BookCarousel = ({ books, reviews }) => {
                   review={review.review}
                 />
               ))}
+              <Button
+                variant="contained"
+                onClick={handleModalOpen}
+                sx={{ mt: 2 }}
+              >
+                Leave a Review
+              </Button>
             </Box>
           )}
           <Button
@@ -138,6 +145,11 @@ const BookCarousel = ({ books, reviews }) => {
           animationConfig={config.gentle}
         />
       </Box>
+      {/* <ReviewModal
+        open={openModal}
+        onClose={handleModalClose}
+        onSubmit={handleReviewSubmit}
+      /> */}
     </Box>
   );
 };
