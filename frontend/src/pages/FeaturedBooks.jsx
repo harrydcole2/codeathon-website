@@ -1,45 +1,33 @@
-import { Container } from "@mui/material";
+import { Container, CircularProgress, Typography } from "@mui/material";
+import { useGetBooks } from "../hooks/book";
 import BookCarousel from "../components/BookCarousel";
 
 const FeaturedBooks = () => {
-  const books = [
-    {
-      title: "To Kill a Mockingbird",
-      author: "Harper Lee",
-      genre: "Fiction",
-      description: "A classic of modern American literature...",
-      coverImage: "url_to_image",
-    },
-    {
-      title: "To Kill a Mockingbird",
-      author: "Harper Lee",
-      genre: "Fiction",
-      description: "A classic of modern American literature...",
-      coverImage: "abdul-ahad-sheikh-kUYexCmEPuI-unsplash.jpg",
-    },
-    {
-      title: "1984",
-      author: "George Orwell",
-      genre: "Dystopian",
-      description:
-        "1984 by George Orwell is a dystopian novel set in a totalitarian society ruled by the Party...",
-      coverImage:
-        "https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=400&h=250",
-    },
-    {
-      title: "Brave New World",
-      author: "Aldous Huxley",
-      genre: "Dystopian",
-      description:
-        "Brave New World explores a future society driven by technology and consumerism...",
-      coverImage:
-        "https://images.unsplash.com/photo-1537944434965-cf4679d1a598?auto=format&fit=crop&w=400&h=250",
-    },
-  ];
+  // TODO: The Carousel doensn't work for 2 books, and 1 book may be limiting...
+  const { data: books, isLoading, isError, error } = useGetBooks("featured");
+
+  if (isLoading) {
+    return (
+      <Container>
+        <CircularProgress />
+        <Typography>Loading featured books...</Typography>
+      </Container>
+    );
+  }
+
+  if (isError) {
+    return (
+      <Container>
+        <Typography>Error fetching featured books: {error.message}</Typography>
+      </Container>
+    );
+  }
 
   return (
     <Container>
-      <h1>Featured Books:</h1>
+      <Typography variant="h4" gutterBottom>
+        Featured Books:
+      </Typography>
       <BookCarousel books={books} />
     </Container>
   );

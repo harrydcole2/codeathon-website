@@ -1,12 +1,37 @@
-import PastBookList from "../components/PastBookList"
+import { useGetBooks } from "../hooks/book";
+import PastBookList from "../components/PastBookList";
+import { Container, CircularProgress, Typography } from "@mui/material";
 
 const PastPicks = () => {
-  return (
-    <> 
-    <h1>Past Picks:</h1>
-    <PastBookList/>
-    </>
-  )
-}
+  // Fetch archived books
+  const { data: books, isLoading, isError, error } = useGetBooks("archived");
 
-export default PastPicks
+  console.log(books);
+  if (isLoading) {
+    return (
+      <Container>
+        <CircularProgress />
+        <Typography>Loading past picks...</Typography>
+      </Container>
+    );
+  }
+
+  if (isError) {
+    return (
+      <Container>
+        <Typography>Error fetching past picks: {error.message}</Typography>
+      </Container>
+    );
+  }
+
+  return (
+    <Container>
+      <Typography variant="h4" gutterBottom>
+        Past Picks:
+      </Typography>
+      <PastBookList books={books} />
+    </Container>
+  );
+};
+
+export default PastPicks;
