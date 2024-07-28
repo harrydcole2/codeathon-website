@@ -6,6 +6,29 @@ const FeaturedBooks = () => {
   // TODO: The Carousel doensn't work for 2 books, and 1 book may be limiting...
   const { data: books, isLoading, isError, error } = useGetBooks("featured");
 
+  const reviews = [
+    {
+      id: 1,
+      value: 5,
+      review: "My fav book",
+    },
+    {
+      id: 2,
+      value: 2,
+      review: "No me gusta",
+    },
+    {
+      id: 3,
+      value: 3,
+      review: "Mid",
+    },
+    {
+      id: 4,
+      value: 4,
+      review: "Almost really great",
+    },
+  ];
+
   if (isLoading) {
     return (
       <Container>
@@ -28,7 +51,7 @@ const FeaturedBooks = () => {
       <Typography variant="h4" gutterBottom>
         Featured Books:
       </Typography>
-      <BookCarousel books={books} />
+      <BookCarousel books={books} reviews={reviews} />
     </Container>
   );
 };
