@@ -29,10 +29,10 @@ const PastPicks = () => {
       <Typography
         variant="h4"
         fontWeight="bold"
-        sx={{ textDecoration: "underline" }}
+        // sx={{ textDecoration: "underline" }}
         gutterBottom
       >
-        Book Club Past Picks
+        Club Past Picks
       </Typography>
       <PastBookList books={books} />
     </Container>

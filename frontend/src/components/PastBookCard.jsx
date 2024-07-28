@@ -22,14 +22,14 @@ const PastBookCard = ({ title, author, description, image }) => {
         display: "flex",
         width: "100%",
         borderRadius: 2,
-        padding: "0 2 2 3",
+        padding: "0 2 2 0", // May need to adjust
         mb: 2,
         boxShadow: 3,
       }}
     >
       <CardMedia
         component="img"
-        sx={{ width: 70, height: 100, objectFit: "cover" }} // Adjust width and height as needed
+        sx={{ width: 70, height: 100, objectFit: "cover" }}
         image={image}
         alt={title}
       />
