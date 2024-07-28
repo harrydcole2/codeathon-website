@@ -5,8 +5,8 @@ import api from "../services/api";
 
 // User API methods (not exposed out of this class)
 
-const getUsers = async () => {
-  const { data } = await api.get(`/user/list`);
+const getUsers = async (token) => {
+  const { data } = await api.get(`/user/list?token=${token}`);
   return data;
 };
 
@@ -23,8 +23,8 @@ const validateUser = async (credentials) => {
 // User endpoint hooks
 
 export const useGetUsers = () => {
-  //TODO: delete endpoint ?
-  return useQuery(["users"], () => getUsers());
+  // TODO: get token from context
+  return useQuery(["users"], (token) => getUsers(token));
 };
 
 export const useRegisterUser = () => {
