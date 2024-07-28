@@ -6,7 +6,6 @@ import {
   Typography,
   Box,
   Button,
-  Container,
 } from "@mui/material";
 import Carousel from "react-spring-3d-carousel";
 import { config } from "react-spring";
@@ -25,6 +24,7 @@ const BookCarousel = ({ books, reviews }) => {
   };
 
   useEffect(() => {
+    // Adjust carousel height when expanded state changes
     setCarouselHeight(expanded ? 700 : 350);
   }, [expanded]);
 
@@ -48,7 +48,7 @@ const BookCarousel = ({ books, reviews }) => {
         sx={{
           display: "flex",
           width: "50vw",
-          height: expanded ? "auto" : "50vh",
+          height: expanded ? "70vh" : "50vh",
           maxHeight: expanded ? "70vh" : "50vh",
           overflow: "auto",
           transition: "all 0.3s",
@@ -73,33 +73,33 @@ const BookCarousel = ({ books, reviews }) => {
               {book.title}
             </Typography>
             <Typography
-              variant='subtitle1'
-              color='text.secondary'
-              component='div'
+              variant="subtitle1"
+              color="text.secondary"
+              component="div"
             >
               {book.author}
             </Typography>
             <Typography
-              variant='subtitle2'
-              color='text.secondary'
-              component='div'
+              variant="subtitle2"
+              color="text.secondary"
+              component="div"
             >
               {book.genre}
             </Typography>
             <Typography
-              variant='body2'
-              color='text.secondary'
-              component='div'
+              variant="body2"
+              color="text.secondary"
+              component="div"
               sx={{ mt: 2 }}
             >
               {book.description}
             </Typography>
             <Typography
-              variant='body1'
-              color='text.secondary'
-              sx={{ fontSize: '1.1rem', mt: 2 }}
+              variant="body1"
+              color="text.secondary"
+              sx={{ fontSize: "1.1rem", mt: 2 }}
             >
-              <Link to='/discussions'>Discussion</Link>
+              <Link to="/discussions">Discussion</Link>
             </Typography>
           </CardContent>
           {expanded && (
@@ -136,27 +136,38 @@ const BookCarousel = ({ books, reviews }) => {
   }));
 
   return (
-    <Container
+    <Box
       sx={{
         width: "100%",
-        height: carouselHeight,
-        position: "relative",
-        transition: "height 0.3s",
+        height: "100vh",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        overflow: "hidden",
       }}
     >
-      <Carousel
-        slides={slides}
-        goToSlide={goToSlide}
-        offsetRadius={2}
-        showNavigation={false}
-        animationConfig={config.gentle}
-      />
-      <ReviewModal
+      <Box
+        sx={{
+          width: "100%",
+          height: carouselHeight,
+          transition: "height 0.3s",
+          position: "relative",
+        }}
+      >
+        <Carousel
+          slides={slides}
+          goToSlide={goToSlide}
+          offsetRadius={2}
+          showNavigation={false}
+          animationConfig={config.gentle}
+        />
+      </Box>
+      {/* <ReviewModal
         open={openModal}
         onClose={handleModalClose}
         onSubmit={handleReviewSubmit}
-      />
-    </Container>
+      /> */}
+    </Box>
   );
 };
 
