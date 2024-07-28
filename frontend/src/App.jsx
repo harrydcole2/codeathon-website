@@ -6,6 +6,9 @@ import Discussions from "./pages/Discussions";
 import Store from "./pages/Store";
 import About from "./pages/About";
 import NavBar from "./components/NavBar";
+import LoginPage from "./pages/LoginPage";
+import SignUpPage from "./pages/SignUpPage";
+
 
 function App() {
   return (
@@ -17,6 +20,8 @@ function App() {
         <Route path="/discussions" element={<Discussions />} />
         <Route path="/store" element={<Store />} />
         <Route path="/about" element={<About />} />
+        <Route path="/loginPage" element={<LoginPage />} />
+        <Route path="/signUp" element={<SignUpPage/>} />
       </Routes>
     </ErrorBoundary>
   );

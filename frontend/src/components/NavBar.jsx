@@ -1,4 +1,4 @@
-import * as React from "react";
+import {useState} from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -11,9 +11,10 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate} from "react-router-dom";
 import "../index.css";
 import Iconify from "./Iconify";
+import { Button } from "@mui/material";
 
 const drawerWidth = 240;
 const navItems = [
@@ -24,9 +25,24 @@ const navItems = [
   "About",
 ];
 
+
+
 function NavBar(props) {
   const { window } = props;
-  const [mobileOpen, setMobileOpen] = React.useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [loginStatus, setLoginStatus] = useState(false);
+  const navigate = useNavigate();
+
+  const handleLoginStatusChange = () => {
+    setLoginStatus(prevStatus => !prevStatus);
+    if (loginStatus) {
+      navigate('/')
+    } else {
+      navigate('/loginPage')
+    }
+  }
+
+
 
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
@@ -65,7 +81,6 @@ function NavBar(props) {
             onClick={handleDrawerToggle}
             sx={{ mr: 2, display: { sm: "none" } }}
           >
-            {/* <MenuIcon /> */}
           </IconButton>
           <Typography
             variant="h6"
@@ -96,6 +111,11 @@ function NavBar(props) {
               </NavLink>
             ))}
           </Box>
+          <Button 
+          variant="contained"
+          color="secondary"
+          onClick={handleLoginStatusChange}
+          >{loginStatus ? "Logout" : "Login"}</Button>
         </Toolbar>
       </AppBar>
       <nav>
