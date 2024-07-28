@@ -6,7 +6,6 @@ const Review = ({value, review}) => {
       return (
     <Box sx={{ display: 'flex', flexDirection: 'column', mb: 2 }}>
       <Typography variant="body1" sx={{ fontWeight: 'bold' }}>
-        Person
       </Typography>
       <Rating name="read-only" value={value} readOnly />
       <Typography variant="body2" sx={{ mt: 1 }}>

@@ -11,11 +11,13 @@ import Carousel from "react-spring-3d-carousel";
 import { config } from "react-spring";
 import { Link } from "react-router-dom";
 import Review from "./Review";
+import ReviewModal from "./ReviewModal";
 
 const BookCarousel = ({ books, reviews }) => {
   const [goToSlide, setGoToSlide] = useState(0);
   const [expanded, setExpanded] = useState(false);
   const [carouselHeight, setCarouselHeight] = useState(350);
+  const [openModal, setOpenModal] = useState(false);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -25,6 +27,19 @@ const BookCarousel = ({ books, reviews }) => {
     // Adjust carousel height when expanded state changes
     setCarouselHeight(expanded ? 700 : 350);
   }, [expanded]);
+
+  const handleModalOpen = () => {
+    setOpenModal(true);
+  };
+
+  const handleModalClose = () => {
+    setOpenModal(false);
+  };
+
+  const handleReviewSubmit = (review) => {
+    // Handle review submission logic here
+    setOpenModal(false);
+  };
 
   const slides = books.map((book, index) => ({
     key: index,
@@ -96,22 +111,24 @@ const BookCarousel = ({ books, reviews }) => {
                   review={review.review}
                 />
               ))}
-              <Button
-                variant="contained"
-                onClick={handleModalOpen}
-                sx={{ mt: 2 }}
-              >
-                Leave a Review
-              </Button>
             </Box>
           )}
-          <Button
-            variant="outlined"
-            onClick={handleExpandClick}
-            sx={{ mt: 2, mb: 2, mx: 2, alignSelf: "flex-start" }}
-          >
-            {expanded ? "Close Reviews" : "See Reviews"}
-          </Button>
+          <Box sx={{ display: "flex", gap: 2, mx: 2 }}>
+            <Button
+              variant="contained"
+              onClick={handleModalOpen}
+              sx={{ mt: 2, alignSelf: "flex-start" }}
+            >
+              Leave a Review
+            </Button>
+            <Button
+              variant="outlined"
+              onClick={handleExpandClick}
+              sx={{ mt: 2, alignSelf: "flex-start" }}
+            >
+              {expanded ? "Close Reviews" : "See Reviews"}
+            </Button>
+          </Box>
         </Box>
       </Card>
     ),
