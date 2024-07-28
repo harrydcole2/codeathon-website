@@ -18,7 +18,7 @@ const PastBookList = ({ books }) => {
             author={book.author}
             description={book.description}
             image={
-              "https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=400&h=250" //temporary image
+              "https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=400&h=250" // temporary image
             }
           />
         ))}

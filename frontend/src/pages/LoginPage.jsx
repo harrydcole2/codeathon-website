@@ -86,7 +86,7 @@ const LoginPage = () => {
           >
             Sign In
           </Button>
-          <Link to="/signUp" variant="body2">
+          <Link to="/register" variant="body2">
             {"Don't have an account? Sign up here!"}
           </Link>
         </Box>
