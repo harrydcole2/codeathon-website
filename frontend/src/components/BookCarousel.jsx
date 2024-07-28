@@ -9,7 +9,7 @@ const BookCarousel = ({ books }) => {
   const slides = books.map((book, index) => ({
     key: index,
     content: (
-      <Card sx={{ display: "flex", width: 600, height: 300 }}>
+      <Card sx={{ display: "flex", width: "50vw", height: "50vh" }}>
         <CardMedia
           component="img"
           sx={{ width: 200 }}
