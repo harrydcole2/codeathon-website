@@ -1,7 +1,5 @@
 import { useState } from 'react';
-import { Modal, Box, Typography, TextField, Button } from '@mui/material';
-import Rating from '@mui/material';
-import Divider from '@mui/material';
+import { Modal, Box, Typography, TextField, Button, Rating } from '@mui/material';
 
 const ReviewModal = ({ open, onClose, onSubmit }) => {
   const [newReview, setNewReview] = useState({ value: 0, review: '' });
@@ -41,13 +39,7 @@ const ReviewModal = ({ open, onClose, onSubmit }) => {
         <Typography id="modal-title" variant="h6" component="h2">
           Leave a Review
         </Typography>
-        <Box sx={{ display: 'flex', flexDirection: 'column', mb: 2 }}>
-            <Typography variant="body1" sx={{ fontWeight: 'bold' }}>
-            </Typography>
-            <Rating name="half-rating" defaultValue={2.5} precision={0.5} />
-      <Divider sx={{ mt: 2 }} />
-    </Box>
-  );
+        <Rating name="half-rating" defaultValue={2.5} precision={0.5} />
         <TextField
           fullWidth
           id="review"
