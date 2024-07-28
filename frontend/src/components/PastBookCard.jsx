@@ -1,10 +1,16 @@
-import React from 'react';
-import { Card, CardMedia, CardContent, Typography, Box } from '@mui/material';
+import { useState } from 'react';
+import { Card, CardMedia, CardContent, Typography, Box, Button } from '@mui/material';
 import { Link } from 'react-router-dom';
 
 const PastBookCard = ({ title, author, description, image }) => {
+  const [expanded, setExpanded] = useState(false);
+
+  const handleExpandClick = () => {
+    setExpanded(!expanded);
+  };
+
   return (
-    <Card sx={{ display: 'flex', maxWidth: '100%', borderRadius: 2, mb: 2, boxShadow: 3 }}>
+    <Card sx={{ display: 'flex', minWidth: '100%', borderRadius: 2, mb: 2, boxShadow: 3 }}>
       <CardMedia
         component="img"
         sx={{ width: 70, height: 100, objectFit: 'cover' }} // Adjust width and height as needed
@@ -26,9 +32,29 @@ const PastBookCard = ({ title, author, description, image }) => {
               <Link to="/discussions">Discussion</Link>
             </Typography>
           </Box>
-          <Typography variant="body1" color="text.secondary" sx={{ fontSize: '1.1rem' }}>
+          <Typography
+            variant="body1"
+            color="text.secondary"
+            sx={{
+              fontSize: '1.1rem',
+              maxHeight: expanded ? 'none' : '3rem',
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+              display: '-webkit-box',
+              WebkitLineClamp: expanded ? 'none' : 1, // Number of lines before truncation
+              WebkitBoxOrient: 'vertical',
+            }}
+          >
             {description}
           </Typography>
+          <Button
+            onClick={handleExpandClick}
+            sx={{ alignSelf: 'flex-start', mt: 1 }}
+            size="small"
+            variant="outlined"
+          >
+            {expanded ? 'Show Less' : 'More'}
+          </Button>
         </CardContent>
       </Box>
     </Card>

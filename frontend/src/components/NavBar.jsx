@@ -12,6 +12,7 @@ import ListItemText from "@mui/material/ListItemText";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import { NavLink } from "react-router-dom";
+import "../index.css";
 import Iconify from "./Iconify";
 
 const drawerWidth = 240;
