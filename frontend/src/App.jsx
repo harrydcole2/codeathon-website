@@ -20,8 +20,8 @@ function App() {
       <ErrorBoundary>
         <Box
           sx={{
-            bgcolor: "#F4D8CD",
-            minHeight: "100vh",
+            bgcolor: "#F5F5F5",
+            minHeight: "98vh",
             display: "flex",
             flexDirection: "column",
           }}
