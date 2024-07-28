@@ -8,6 +8,7 @@ import com.redletterbookclub.red_letter_book_club.repositories.BookRepository;
 import com.redletterbookclub.red_letter_book_club.repositories.ReviewRepository;
 import com.redletterbookclub.red_letter_book_club.utils.TokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -49,8 +50,12 @@ public class BookController {
     }
 
     @PostMapping
-    public ResponseEntity<BookDTO> create(@RequestBody Book newBook) {
-        //TODO: Probably would be good to add validation
+    public ResponseEntity<?> create(@RequestBody Book newBook, @RequestParam String token) {
+        String role = tokenUtil.extractRole(token);
+        if (!role.equals("admin")) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Unauthorized");
+        }
+
         Book createdBook = bookRepository.save(newBook);
         BookDTO bookDTO = convertToDTO(createdBook);
         return ResponseEntity.status(201).body(bookDTO);
@@ -58,15 +63,18 @@ public class BookController {
 
     @GetMapping("/{id}")
     public ResponseEntity<BookDTO> getById(@PathVariable Long id) {
-        //TODO: Probably would be good to add validation
         Optional<Book> book = bookRepository.findById(id);
         return book.map(b -> ResponseEntity.ok(convertToDTO(b)))
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteById(@PathVariable Long id) {
-        //TODO: Probably would be good to add validation
+    public ResponseEntity<?> deleteById(@PathVariable Long id, @RequestParam String token) {
+        String role = tokenUtil.extractRole(token);
+        if (!role.equals("admin")) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Unauthorized");
+        }
+
         if (bookRepository.existsById(id)) {
             bookRepository.deleteById(id);
             return ResponseEntity.noContent().build();
@@ -76,8 +84,12 @@ public class BookController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<BookDTO> updateById(@PathVariable Long id, @RequestBody Book updatedBook) {
-        //TODO: Probably would be good to add validation
+    public ResponseEntity<?> updateById(@PathVariable Long id, @RequestBody Book updatedBook, @RequestParam String token) {
+        String role = tokenUtil.extractRole(token);
+        if (!role.equals("admin")) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Unauthorized");
+        }
+
         if (bookRepository.existsById(id)) {
             updatedBook.setId(id);
             Book book = bookRepository.save(updatedBook);
@@ -87,9 +99,10 @@ public class BookController {
             return ResponseEntity.notFound().build();
         }
     }
-    @PostMapping("/{id}/reviews")
+    @PostMapping("/{id}/review")
     public ResponseEntity<ReviewDTO> addReviewToBook(@PathVariable Long id, @RequestBody Review newReview) {
-        //TODO: Could validate for user role
+        // Could validate for user role, but may let frontend handle it
+        // TODO: Use the review, or a DTO to connect the rating to who placed it
         Optional<Book> book = bookRepository.findById(id);
         if (book.isPresent()) {
             newReview.setBook(book.get());
