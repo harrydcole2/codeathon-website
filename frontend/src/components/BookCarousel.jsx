@@ -162,11 +162,11 @@ const BookCarousel = ({ books, reviews }) => {
           animationConfig={config.gentle}
         />
       </Box>
-      {/* <ReviewModal
+      <ReviewModal
         open={openModal}
         onClose={handleModalClose}
         onSubmit={handleReviewSubmit}
-      /> */}
+      />
     </Box>
   );
 };
