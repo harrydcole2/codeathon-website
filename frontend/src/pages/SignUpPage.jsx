@@ -24,10 +24,7 @@ const SignUpPage = () => {
     };
 
     registerUserMutation.mutate(newUser, {
-      onSuccess: () => {
-        alert("User registered successfully!");
-        // TODO: Clear form or redirect user
-      },
+      // TODO: Snackbar notification
       onError: (error) => {
         alert(`Registration failed: ${error.message}`);
       },

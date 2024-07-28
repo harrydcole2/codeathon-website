@@ -4,8 +4,8 @@ export const AppContext = createContext();
 // export const useAppContext = () => useContext(AppContext); // vite doesn't like this encapsulation
 
 export const AppContextProvider = ({ children }) => {
-  const [token, setToken] = useState("n/a");
-  const [role, setRole] = useState("n/a role");
+  const [token, setToken] = useState("");
+  const [role, setRole] = useState("");
 
   return (
     <AppContext.Provider value={{ token, setToken, role, setRole }}>

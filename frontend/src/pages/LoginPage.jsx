@@ -18,7 +18,7 @@ const LoginPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    loginMutation.mutate({ email, password });
+    loginMutation.mutate({ email, password }); // TODO: Snackbar notification
   };
 
   if (loginMutation.isLoading) {
