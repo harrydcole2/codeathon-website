@@ -32,7 +32,7 @@ public class UserController {
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
 
-    @GetMapping
+    @GetMapping("/list")
     public ResponseEntity<List<UserDTO>> getAll() {
         List<UserDTO> users = userRepository.findAll().stream()
                 .map(this::convertToDTO)
@@ -40,7 +40,7 @@ public class UserController {
         return ResponseEntity.ok(users);
     }
 
-    @PostMapping("/login") //param or body?
+    @GetMapping("/login")
     public ResponseEntity<?> login(@RequestParam String username, @RequestParam String password) {
         User user = userRepository.findByUsername(username).orElse(null);
 
