@@ -15,14 +15,7 @@ const FeaturedBooks = () => {
       author: "Harper Lee",
       genre: "Fiction",
       description: "A classic of modern American literature...",
-      coverImage: "url_to_image",
-    },
-    {
-      title: "To Kill a Mockingbird",
-      author: "Harper Lee",
-      genre: "Fiction",
-      description: "A classic of modern American literature...",
-      coverImage: "url_to_image",
+      coverImage: "abdul-ahad-sheikh-kUYexCmEPuI-unsplash.jpg",
     },
     {
       title: "1984",
