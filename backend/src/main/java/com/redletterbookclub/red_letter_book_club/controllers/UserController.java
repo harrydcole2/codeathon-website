@@ -35,7 +35,7 @@ public class UserController {
     @GetMapping("/list")
     public ResponseEntity<?> getAll(@RequestParam String token) {
         String role = tokenUtil.extractRole(token);
-        if (role.equals("admin")) {
+        if (!role.equals("admin")) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Unauthorized");
         }
 

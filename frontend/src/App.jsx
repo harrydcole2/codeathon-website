@@ -6,19 +6,24 @@ import Discussions from "./pages/Discussions";
 import Store from "./pages/Store";
 import About from "./pages/About";
 import NavBar from "./components/NavBar";
+import { QueryClient, QueryClientProvider } from "react-query";
+
+const queryClient = new QueryClient();
 
 function App() {
   return (
-    <ErrorBoundary>
-      <NavBar />
-      <Routes>
-        <Route path="/" element={<FeaturedBooks />} />
-        <Route path="/pastPicks" element={<PastPicks />} />
-        <Route path="/discussions" element={<Discussions />} />
-        <Route path="/store" element={<Store />} />
-        <Route path="/about" element={<About />} />
-      </Routes>
-    </ErrorBoundary>
+    <QueryClientProvider client={queryClient}>
+      <ErrorBoundary>
+        <NavBar />
+        <Routes>
+          <Route path="/" element={<FeaturedBooks />} />
+          <Route path="/pastPicks" element={<PastPicks />} />
+          <Route path="/discussions" element={<Discussions />} />
+          <Route path="/store" element={<Store />} />
+          <Route path="/about" element={<About />} />
+        </Routes>
+      </ErrorBoundary>
+    </QueryClientProvider>
   );
 }
 

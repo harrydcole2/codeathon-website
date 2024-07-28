@@ -1,6 +1,5 @@
 import { useQuery, useMutation, useQueryClient } from "react-query";
-
-import { ObjectToQueryString } from "../utils/queryString";
+import { ObjectToQueryString } from "../services/uri";
 import api from "../services/api";
 
 // User API methods (not exposed out of this class)
@@ -16,7 +15,10 @@ const addUser = async (newUser) => {
 };
 
 const validateUser = async (credentials) => {
-  const { data } = await api.get(`/user?${ObjectToQueryString(credentials)}`);
+  console.log("validate user", credentials);
+  const { data } = await api.get(
+    `/user/login?${ObjectToQueryString(credentials)}`
+  );
   return data;
 };
 
@@ -40,5 +42,8 @@ export const useRegisterUser = () => {
 };
 
 export const useLoginUser = (credentials) => {
-  return useQuery(["user", { ...credentials.username }], () => validateUser());
+  console.log(credentials);
+  return useQuery(["user", { ...credentials.username }], () =>
+    validateUser(credentials)
+  );
 };
