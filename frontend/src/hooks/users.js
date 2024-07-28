@@ -1,6 +1,7 @@
 import { useQuery, useMutation, useQueryClient } from "react-query";
 import { ObjectToQueryString } from "../services/uri";
 import api from "../services/api";
+import { useNavigate } from "react-router-dom";
 
 // User API methods (not exposed out of this class)
 
@@ -15,7 +16,6 @@ const addUser = async (newUser) => {
 };
 
 const validateUser = async (credentials) => {
-  console.log("validate user", credentials);
   const { data } = await api.get(
     `/user/login?${ObjectToQueryString(credentials)}`
   );
@@ -41,9 +41,19 @@ export const useRegisterUser = () => {
   });
 };
 
-export const useLoginUser = (credentials) => {
-  console.log(credentials);
-  return useQuery(["user", { ...credentials.username }], () =>
-    validateUser(credentials)
-  );
+// export const useLoginUser = (credentials) => {
+//   return useQuery(["user", { ...credentials.username }], () =>
+//     validateUser(credentials)
+//   );
+// };
+
+export const useLoginUser = () => {
+  const navigate = useNavigate();
+  return useMutation((credentials) => validateUser(credentials), {
+    onSuccess: () => {
+      // TODO: Handle successful login (e.g., store token, update user context)
+
+      navigate("/");
+    },
+  });
 };

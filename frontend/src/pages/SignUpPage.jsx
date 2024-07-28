@@ -1,15 +1,37 @@
-import { useState } from 'react';
-import { Box, TextField, Button, Typography, Container } from '@mui/material';
+import { useState } from "react";
+import { Box, TextField, Button, Typography, Container } from "@mui/material";
+import { useRegisterUser } from "../hooks/users";
 
 const SignUpPage = () => {
-  const [email, setEmail] = useState('');
-  const [preferredName, setPreferredName] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [preferredName, setPreferredName] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+
+  const registerUserMutation = useRegisterUser();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Handle sign up logic here
+    if (password !== confirmPassword) {
+      alert("Passwords don't match!");
+      return;
+    }
+
+    const newUser = {
+      email,
+      password,
+      preferredName,
+    };
+
+    registerUserMutation.mutate(newUser, {
+      onSuccess: () => {
+        alert("User registered successfully!");
+        // TODO: Clear form or redirect user
+      },
+      onError: (error) => {
+        alert(`Registration failed: ${error.message}`);
+      },
+    });
   };
 
   return (
@@ -17,9 +39,9 @@ const SignUpPage = () => {
       <Box
         sx={{
           marginTop: 8,
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
         }}
       >
         <Typography component="h1" variant="h5">
@@ -60,7 +82,7 @@ const SignUpPage = () => {
             label="Password"
             type="password"
             id="password"
-            autoComplete="current-password"
+            autoComplete="new-password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />

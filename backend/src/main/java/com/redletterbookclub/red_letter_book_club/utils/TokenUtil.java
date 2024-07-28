@@ -14,15 +14,15 @@ import java.util.Map;
 @Component
 public class TokenUtil {
 
-    private Key secretKey = Keys.secretKeyFor(SignatureAlgorithm.HS256);  // Use a more secure key in production
+    private Key secretKey = Keys.secretKeyFor(SignatureAlgorithm.HS256);  // Use a more secure key in production; does this even do anything now?
 
-    public String generateToken(String username, String role) {
+    public String generateToken(String email, String role) {
         Map<String, Object> claims = new HashMap<>();
         claims.put("role", role);
 
         return Jwts.builder()
                 .setClaims(claims)
-                .setSubject(username)
+                .setSubject(email)
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 10))  // 10 hours
                 .signWith(secretKey, SignatureAlgorithm.HS256)
@@ -40,7 +40,7 @@ public class TokenUtil {
         return (String) extractClaims(token).get("role");
     }
 
-    public String extractUsername(String token) {
+    public String extractEmail(String token) {
         return extractClaims(token).getSubject();
     }
 
@@ -48,8 +48,8 @@ public class TokenUtil {
         return extractClaims(token).getExpiration().before(new Date());
     }
 
-    public boolean validateToken(String token, String username) {
-        return (username.equals(extractUsername(token)) && !isTokenExpired(token));
+    public boolean validateToken(String token, String email) {
+        return (email.equals(extractEmail(token)) && !isTokenExpired(token));
     }
 }
 
