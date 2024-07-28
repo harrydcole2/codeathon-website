@@ -4,6 +4,7 @@ import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import { Box } from "@mui/material";
 import { Link } from "react-router-dom";
+import Review from "./Review";
 
 const BookCard = ({ title, author, description, image }) => {
   return (
@@ -37,7 +38,9 @@ const BookCard = ({ title, author, description, image }) => {
             <Link to="/discussions">Discussion</Link>
           </Typography>
         </CardContent>
+        <Review/>
       </Box>
+      
     </Card>
   );
 };

@@ -35,12 +35,35 @@ const FeaturedBooks = () => {
       coverImage:
         "https://images.unsplash.com/photo-1537944434965-cf4679d1a598?auto=format&fit=crop&w=400&h=250",
     },
-  ];
+  ]
+
+    const reviews = [
+      {
+        id: 1,
+        value : 5,
+        review : "My fav book"
+      },
+      {
+        id: 2,
+        value : 2,
+        review : "No me gusta"
+      },
+      {
+        id: 3,
+        value : 3,
+        review : "Mid"
+      },
+      {
+        id: 4,
+        value : 4,
+        review : "Almost really great"
+      },
+    ];
 
   return (
     <Container>
       <h1>Featured Books:</h1>
-      <BookCarousel books={books} />
+      <BookCarousel books={books} reviews={reviews} />
     </Container>
   );
 };
