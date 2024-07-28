@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import {
   AppBar,
   Toolbar,
@@ -14,6 +14,7 @@ import {
 import MenuIcon from "@mui/icons-material/Menu";
 import { NavLink, useNavigate, useLocation } from "react-router-dom";
 import Iconify from "./Iconify";
+import { AppContext } from "./AppContext";
 
 const navItems = [
   { name: "Featured", path: "/" },
@@ -25,11 +26,22 @@ const navItems = [
 
 function NavBar() {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const { role, setToken, setRole } = useContext(AppContext);
   const navigate = useNavigate();
   const location = useLocation();
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
+  };
+
+  const handleLoginLogout = () => {
+    if (role) {
+      setToken("");
+      setRole("");
+      navigate("/");
+    } else {
+      navigate("/login");
+    }
   };
 
   const drawer = (
@@ -131,7 +143,7 @@ function NavBar() {
         </Box>
         <Button
           variant="contained"
-          onClick={() => navigate("/login")}
+          onClick={() => handleLoginLogout()}
           sx={{
             backgroundColor: "white",
             color: "#9a0147",
@@ -141,7 +153,7 @@ function NavBar() {
             },
           }}
         >
-          Login
+          {!role ? "Login" : "Logout"}
         </Button>
       </Toolbar>
       <Drawer
