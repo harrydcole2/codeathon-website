@@ -15,7 +15,11 @@ const About = () => {
             />
           </Grid>
           <Grid item xs={12} md={8}>
-            <Typography variant="h3" gutterBottom sx={{ color: "#8B0000" }}>
+            <Typography
+              variant="h3"
+              gutterBottom
+              sx={{ color: "#9a0147", fontWeight: "bold" }}
+            >
               Red Letter Book Club
             </Typography>
             <Typography variant="h6" gutterBottom>
@@ -35,13 +39,13 @@ const About = () => {
               adults to retirees.
             </Typography>
             <Box sx={{ display: "flex", alignItems: "center", mt: 2 }}>
-              <EmailIcon sx={{ mr: 1, color: "#8B0000" }} />
+              <EmailIcon sx={{ mr: 1, color: "#9a0147" }} />
               <Typography variant="body2">
                 Contact us: info@redletterbookclub.com
               </Typography>
             </Box>
             <Box sx={{ display: "flex", alignItems: "center", mt: 1 }}>
-              <BookIcon sx={{ mr: 1, color: "#8B0000" }} />
+              <BookIcon sx={{ mr: 1, color: "#9a0147" }} />
               <Typography variant="body2">
                 Next meeting: July 9, 2024 - The Midnight Library by Matt Haig
               </Typography>

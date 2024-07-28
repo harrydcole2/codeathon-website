@@ -80,7 +80,16 @@ function NavBar() {
         </IconButton>
         <Iconify
           icon="solar:book-2-linear"
-          sx={{ color: "white", width: 40, height: 40, mr: 2 }}
+          sx={{
+            color: "white",
+            width: 40,
+            height: 40,
+            mr: 2,
+            display: {
+              xs: "none",
+              sm: "block",
+            },
+          }}
         />
         <Typography
           variant="h6"

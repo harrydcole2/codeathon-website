@@ -20,7 +20,10 @@ function App() {
       <ErrorBoundary>
         <Box
           sx={{
-            bgcolor: "#F5F5F5",
+            backgroundImage: 'url("/pattern.png")',
+            backgroundRepeat: "repeat",
+            backgroundSize: "auto",
+            // bgcolor: "#F5F5F5",
             minHeight: "98vh",
             display: "flex",
             flexDirection: "column",

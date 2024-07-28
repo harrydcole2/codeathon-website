@@ -26,8 +26,13 @@ const PastPicks = () => {
 
   return (
     <Container>
-      <Typography variant="h4" gutterBottom>
-        Past Picks:
+      <Typography
+        variant="h4"
+        fontWeight="bold"
+        sx={{ textDecoration: "underline" }}
+        gutterBottom
+      >
+        Book Club Past Picks
       </Typography>
       <PastBookList books={books} />
     </Container>
