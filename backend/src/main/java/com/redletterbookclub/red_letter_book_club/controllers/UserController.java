@@ -6,6 +6,7 @@ import com.redletterbookclub.red_letter_book_club.repositories.UserRepository;
 import com.redletterbookclub.red_letter_book_club.repositories.RoleRepository;
 import com.redletterbookclub.red_letter_book_club.utils.TokenUtil;
 import com.redletterbookclub.red_letter_book_club.dtos.UserDTO;
+import org.antlr.v4.runtime.Token;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,7 +34,12 @@ public class UserController {
     private BCryptPasswordEncoder passwordEncoder;
 
     @GetMapping("/list")
-    public ResponseEntity<List<UserDTO>> getAll() {
+    public ResponseEntity<?> getAll(@RequestParam String token) {
+        String role = tokenUtil.extractRole(token);
+        if (role.equals("admin")) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Unauthorized");
+        }
+
         List<UserDTO> users = userRepository.findAll().stream()
                 .map(this::convertToDTO)
                 .collect(Collectors.toList());
@@ -84,7 +90,9 @@ public class UserController {
                 user.getEmail(),
                 user.getPreferredName(),
                 user.getRole().getName(),
-                null  // token is set separately when needed
+                null
         );
     }
+
+    // TODO: Eventually add new delete/update endpoints to make an account a better experience
 }
