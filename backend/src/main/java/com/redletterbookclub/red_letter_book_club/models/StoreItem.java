@@ -22,6 +22,9 @@ public class StoreItem {
     //@Type(type="org.hibernate.type.BinaryType") // TODO: is this necessary?
     private byte[] picture;
 
+    @Column(name = "picture_url", length = 255)
+    private String pictureUrl;
+
     @Column(nullable = false)
     private BigDecimal price;
 
@@ -96,5 +99,13 @@ public class StoreItem {
 
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public String getPictureUrl() {
+        return pictureUrl;
+    }
+
+    public void setPictureUrl(String pictureUrl) {
+        this.pictureUrl = pictureUrl;
     }
 }

@@ -22,6 +22,9 @@ public class Discussion {
     @Column(nullable = false, length = 100)
     private String title;
 
+    @Column(name = "topic_tag")
+    private String topicTag;
+
     @Column(columnDefinition = "TEXT")
     private String content;
 
@@ -118,6 +121,14 @@ public class Discussion {
 
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public String getTopicTag() {
+        return topicTag;
+    }
+
+    public void setTopicTag(String topicTag) {
+        this.topicTag = topicTag;
     }
 }
 

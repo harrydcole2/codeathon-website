@@ -12,9 +12,9 @@ public class BookDTO {
     private boolean archived;
     private LocalDate datePublished;
     private String genre;
+    private String pictureUrl;
     private List<ReviewDTO> reviews;
 
-    // Getters and Setters
     public Long getId() {
         return id;
     }
@@ -85,6 +85,14 @@ public class BookDTO {
 
     public void setReviews(List<ReviewDTO> reviews) {
         this.reviews = reviews;
+    }
+
+    public String getPictureUrl() {
+        return pictureUrl;
+    }
+
+    public void setPictureUrl(String pictureUrl) {
+        this.pictureUrl = pictureUrl;
     }
 }
 

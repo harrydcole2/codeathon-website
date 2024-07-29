@@ -128,6 +128,7 @@ public class BookController {
         bookDTO.setArchived(book.isArchived());
         bookDTO.setDatePublished(book.getDatePublished());
         bookDTO.setGenre(book.getGenre());
+        bookDTO.setPictureUrl(book.getPictureUrl());
         bookDTO.setReviews(reviews);
         return bookDTO;
     }
