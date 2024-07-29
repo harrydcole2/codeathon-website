@@ -43,7 +43,7 @@ const StoreCarousel = ({ items }) => {
           image={item.image}
           alt={item.name}
           onError={(event) => {
-            event.target.src = "abdul-ahad-sheikh-kUYexCmEPuI-unsplash.jpg";
+            event.target.src = "keep-calm.jpg";
           }}
         />
         <Box

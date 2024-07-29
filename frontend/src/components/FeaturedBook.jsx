@@ -5,15 +5,13 @@ import {
   CardMedia,
   Box,
   Button,
-  IconButton,
   Collapse,
 } from "@mui/material";
 import { Link } from "react-router-dom";
 import Review from "../components/Review";
 import { useState } from "react";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
-const FeaturedBook = ({ book, isProminent, onReviewClick }) => {
+const FeaturedBook = ({ book, onReviewClick }) => {
   const [expanded, setExpanded] = useState(false);
 
   const handleExpandClick = () => {
@@ -33,13 +31,13 @@ const FeaturedBook = ({ book, isProminent, onReviewClick }) => {
         display: "flex",
         mb: 2,
         borderRadius: "8px",
-        height: isProminent ? "600px" : "300px",
+        height: "600px",
       }}
     >
       <CardMedia
         component="img"
         sx={{
-          width: isProminent ? "33%" : "20%",
+          width: "33%",
           objectFit: "cover",
         }}
         image={book.coverImage}
@@ -47,7 +45,7 @@ const FeaturedBook = ({ book, isProminent, onReviewClick }) => {
       />
       <Box sx={{ display: "flex", flexDirection: "column", width: "100%" }}>
         <CardContent sx={{ flex: "1 0 auto", overflow: "auto" }}>
-          <Typography variant={isProminent ? "h4" : "h5"} gutterBottom>
+          <Typography variant="h4" gutterBottom>
             {book.title}
           </Typography>
           <Typography variant="subtitle1" gutterBottom>
@@ -82,13 +80,18 @@ const FeaturedBook = ({ book, isProminent, onReviewClick }) => {
               Leave a Review
             </Button>
           </Box>
-          <IconButton
+          <Button
             onClick={handleExpandClick}
-            aria-expanded={expanded}
-            aria-label="show more"
+            size="small"
+            variant="outlined"
+            sx={{
+              borderColor: "#9a0147",
+              color: "#9a0147",
+              "&:hover": { borderColor: "#9a0147", color: "#9a0147" },
+            }}
           >
-            <ExpandMoreIcon />
-          </IconButton>
+            {expanded ? "Show Less" : "See More"}
+          </Button>
         </Box>
         <Collapse in={expanded} timeout="auto" unmountOnExit>
           <CardContent>

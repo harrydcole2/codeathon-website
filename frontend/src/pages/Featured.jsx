@@ -3,6 +3,7 @@ import { useGetBooks } from "../hooks/book";
 import ReviewModal from "../components/ReviewModal";
 import { useState } from "react";
 import FeaturedBook from "../components/FeaturedBook";
+import BookCard from "../components/BookCard";
 
 const Featured = () => {
   const { data: books, isLoading, isError, error } = useGetBooks("featured");
@@ -44,22 +45,19 @@ const Featured = () => {
 
   return (
     <Container maxWidth="lg">
-      <Typography variant="h3" gutterBottom sx={{ mb: 4 }}>
-        Featured Books
+      <Typography variant="h3" fontWeight="bold" gutterBottom sx={{ mb: 4 }}>
+        Featured
       </Typography>
 
-      <FeaturedBook
-        book={firstBook}
-        isProminent={true}
-        onReviewClick={handleModalOpen}
-      />
+      <FeaturedBook book={firstBook} onReviewClick={handleModalOpen} />
 
       {otherBooks.map((book) => (
-        <FeaturedBook
+        <BookCard
           key={book.id}
-          book={book}
-          isProminent={false}
-          onReviewClick={handleModalOpen}
+          title={book.title}
+          author={book.author}
+          description={book.description}
+          image={book.coverImage}
         />
       ))}
 

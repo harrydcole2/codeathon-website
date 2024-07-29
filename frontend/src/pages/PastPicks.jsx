@@ -32,7 +32,7 @@ const PastPicks = () => {
         // sx={{ textDecoration: "underline" }}
         gutterBottom
       >
-        Club Past Picks
+        Past Picks
       </Typography>
       <PastBookList books={books} />
     </Container>

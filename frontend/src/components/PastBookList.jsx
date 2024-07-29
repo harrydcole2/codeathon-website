@@ -1,5 +1,5 @@
 import { Container, Box } from "@mui/material";
-import PastBookCard from "./PastBookCard";
+import BookCard from "./BookCard";
 
 const PastBookList = ({ books }) => {
   console.log(
@@ -12,7 +12,7 @@ const PastBookList = ({ books }) => {
         sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}
       >
         {books.map((book) => (
-          <PastBookCard
+          <BookCard
             key={book.id}
             title={book.title}
             author={book.author}
