@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import {
   Card,
   CardMedia,
@@ -9,15 +9,16 @@ import {
   Divider,
 } from "@mui/material";
 import Review from "./Review";
+import { AppContext } from "./AppContext";
 
 const BookCard = ({ book }) => {
   const [expanded, setExpanded] = useState(false);
+  const { role } = useContext(AppContext);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
 
-  // Fake reviews
   book.reviews = [
     { id: 1, content: "Great read! Couldn't put it down.", rating: 5 },
     {
@@ -55,7 +56,7 @@ const BookCard = ({ book }) => {
             height: 250,
             objectFit: "cover",
           }}
-          image={"keep-calm.jpg"}
+          image={"bookstack.jpg"} //TODO: Render as alternative
           alt={book.title}
         />
         {/* Gray box to fill any extra space */}
@@ -118,17 +119,32 @@ const BookCard = ({ book }) => {
           <Box
             sx={{ display: "flex", justifyContent: "flex-end", mt: 1, gap: 1 }}
           >
-            <Button
-              size="small"
-              variant="outlined"
-              sx={{
-                borderColor: "#9a0147",
-                color: "#9a0147",
-                "&:hover": { borderColor: "#9a0147", color: "#9a0147" },
-              }}
-            >
-              Review
-            </Button>
+            {role === "admin" && (
+              <Button
+                size="small"
+                variant="outlined"
+                sx={{
+                  borderColor: "#9a0147",
+                  color: "#9a0147",
+                  "&:hover": { borderColor: "#9a0147", color: "#9a0147" },
+                }}
+              >
+                Open Discussion
+              </Button>
+            )}
+            {role !== "" && (
+              <Button
+                size="small"
+                variant="outlined"
+                sx={{
+                  borderColor: "#9a0147",
+                  color: "#9a0147",
+                  "&:hover": { borderColor: "#9a0147", color: "#9a0147" },
+                }}
+              >
+                Review
+              </Button>
+            )}
             <Button
               onClick={handleExpandClick}
               size="small"
