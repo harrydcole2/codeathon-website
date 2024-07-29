@@ -52,13 +52,7 @@ const Featured = () => {
       <FeaturedBook book={firstBook} onReviewClick={handleModalOpen} />
 
       {otherBooks.map((book) => (
-        <BookCard
-          key={book.id}
-          title={book.title}
-          author={book.author}
-          description={book.description}
-          image={book.coverImage}
-        />
+        <BookCard key={book.id} book={book} />
       ))}
 
       <ReviewModal

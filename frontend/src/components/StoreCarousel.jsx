@@ -79,6 +79,8 @@ const StoreCarousel = ({ items }) => {
             <Button
               variant="contained"
               color="primary"
+              size="large"
+              disabled
               sx={{
                 backgroundColor: "#9a0147",
                 "&:hover": {
@@ -86,7 +88,7 @@ const StoreCarousel = ({ items }) => {
                 },
               }}
             >
-              Add to Cart
+              Buy Now
             </Button>
           </Box>
         </Box>

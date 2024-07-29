@@ -12,15 +12,7 @@ const PastBookList = ({ books }) => {
         sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}
       >
         {books.map((book) => (
-          <BookCard
-            key={book.id}
-            title={book.title}
-            author={book.author}
-            description={book.description}
-            image={
-              "https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=400&h=250" // temporary image
-            }
-          />
+          <BookCard key={book.id} book={book} />
         ))}
       </Box>
     </Container>

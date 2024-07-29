@@ -20,8 +20,8 @@ const navItems = [
   { name: "Featured", path: "/" },
   { name: "Past Picks", path: "/pastPicks" },
   { name: "Discussions", path: "/discussions" },
-  { name: "Store", path: "/store" },
   { name: "About", path: "/about" },
+  { name: "Store", path: "/store" },
 ];
 
 function NavBar() {
