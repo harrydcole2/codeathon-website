@@ -40,7 +40,7 @@ const ReviewModal = ({ open, onClose, book }) => {
   };
 
   return (
-    <Dialog open={open} onClose={onClose}>
+    <Dialog open={open} onClose={onClose} fullWidth>
       <DialogTitle fontWeight="bold">Rate {book.title}</DialogTitle>
       <DialogContent>
         <Rating

@@ -10,7 +10,7 @@ import ReviewModal from "../components/ReviewModal";
 import { useContext, useState } from "react";
 import FeaturedBookCard from "../components/FeaturedBookCard";
 import BookCard from "../components/BookCard";
-import Iconify from "../components/Iconify"; // Import the Iconify component
+import Iconify from "../components/Iconify";
 import { AppContext } from "../components/AppContext";
 
 const Featured = () => {
@@ -75,7 +75,7 @@ const Featured = () => {
               gap: 1,
             }}
           >
-            <Iconify icon="mdi:add" sx={{ fontSize: 24 }} /> {/* Add icon */}
+            <Iconify icon="mdi:add" sx={{ fontSize: 24 }} />
             Add Book
           </Button>
         )}

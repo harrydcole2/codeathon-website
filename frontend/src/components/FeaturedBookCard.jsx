@@ -19,15 +19,7 @@ const FeaturedBookCard = ({ book, onReviewClick }) => {
     setExpanded(!expanded);
   };
 
-  book.reviews = [
-    { id: 1, content: "Great read! Couldn't put it down.", rating: 5 },
-    {
-      id: 2,
-      content: "Interesting plot, but the pacing was a bit slow.",
-      rating: 4,
-    },
-    { id: 3, content: "A masterpiece of modern literature.", rating: 5 },
-  ];
+  console.log(book);
 
   return (
     <Card
@@ -87,7 +79,7 @@ const FeaturedBookCard = ({ book, onReviewClick }) => {
         {expanded && (
           <>
             <Box sx={{ mt: 4 }}>
-              <Divider sx={{ mb: 2 }} />
+              {book.reviews.length > 0 && <Divider sx={{ mb: 2 }} />}
               {book.reviews.map((review) => (
                 <Review key={review.id} review={review} />
               ))}

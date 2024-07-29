@@ -6,7 +6,7 @@ const Review = ({ review }) => {
     <Box sx={{ display: "flex", flexDirection: "column", mb: 2 }}>
       <Box sx={{ display: "flex", alignItems: "center", mb: 1 }}>
         <Chip
-          label="John Doe" // TODO: Remove hardcoded name, replace with the users preferred name
+          label={review.reviewer || "Anonymous"}
           sx={{ mr: 2, bgcolor: "#9a0147", color: "white" }}
         />
         <Rating name="read-only" value={review.rating} readOnly size="large" />

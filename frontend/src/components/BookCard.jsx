@@ -19,17 +19,6 @@ const BookCard = ({ book, onReviewClick }) => {
     setExpanded(!expanded);
   };
 
-  book.reviews = [
-    { id: 1, content: "Great read! Couldn't put it down.", rating: 5 },
-    {
-      id: 2,
-      content: "Interesting plot, but the pacing was a bit slow.",
-      rating: 4,
-    },
-    { id: 3, content: "A masterpiece of modern literature.", rating: 5 },
-    { id: 4, content: "Meh.", rating: 2 },
-  ];
-
   return (
     <Card
       sx={{
@@ -86,14 +75,26 @@ const BookCard = ({ book, onReviewClick }) => {
                 {book.author}
               </Typography>
             </Box>
-            <Typography variant="body2" color="text.secondary">
+            <Typography
+              variant="body2"
+              color="text.secondary"
+              sx={{
+                fontSize: "1.1rem",
+                maxHeight: expanded ? "none" : "3rem",
+                overflow: "hidden",
+                textOverflow: "ellipsis",
+                display: "-webkit-box",
+                WebkitLineClamp: expanded ? "none" : 3,
+                WebkitBoxOrient: "vertical",
+              }}
+            >
               {book.description}
             </Typography>
           </Box>
           {expanded && (
             <>
               <Box sx={{ mt: 4 }}>
-                <Divider sx={{ mb: 2 }} />
+                {book.reviews.length > 0 && <Divider sx={{ mb: 2 }} />}
                 {book.reviews.map((review) => (
                   <Review key={review.id} review={review} />
                 ))}
@@ -108,11 +109,9 @@ const BookCard = ({ book, onReviewClick }) => {
                 size="small"
                 variant="outlined"
                 sx={{
-                  display: "flex",
-                  justifyContent: "flex-end",
-                  gap: 1,
-                  mt: 1,
-                  mb: 2,
+                  borderColor: "#9a0147",
+                  color: "#9a0147",
+                  "&:hover": { borderColor: "#9a0147", color: "#9a0147" },
                 }}
               >
                 Edit Book
