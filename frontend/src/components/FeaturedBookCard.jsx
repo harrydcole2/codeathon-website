@@ -10,14 +10,13 @@ import {
 } from "@mui/material";
 import Review from "./Review";
 
-const BookCard = ({ book }) => {
+const FeaturedBookCard = ({ book }) => {
   const [expanded, setExpanded] = useState(false);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
 
-  // Fake reviews
   book.reviews = [
     { id: 1, content: "Great read! Couldn't put it down.", rating: 5 },
     {
@@ -26,7 +25,6 @@ const BookCard = ({ book }) => {
       rating: 4,
     },
     { id: 3, content: "A masterpiece of modern literature.", rating: 5 },
-    { id: 4, content: "Meh.", rating: 2 },
   ];
 
   return (
@@ -34,15 +32,15 @@ const BookCard = ({ book }) => {
       sx={{
         display: "flex",
         width: "100%",
+        minHeight: "400px",
         borderRadius: 2,
-        padding: "0 2 2 0", // may change this?
         mb: 2,
         boxShadow: 3,
       }}
     >
       <CardMedia
         component="img"
-        sx={{ width: 100, objectFit: "cover" }} // TODO: needs to be dynamic from book and not set the card height
+        sx={{ width: 300, objectFit: "cover" }} // TODO: needs to be dynamic and not set the height
         image={"keep-calm.jpg"}
         alt={book.title}
       />
@@ -65,31 +63,39 @@ const BookCard = ({ book }) => {
               }}
             >
               <Box sx={{ display: "flex", alignItems: "center" }}>
-                <Typography variant="h6" component="div" sx={{ mr: 2 }}>
+                <Typography variant="h5" component="div" sx={{ mr: 2 }}>
                   {book.title}
                 </Typography>
-                <Typography variant="subtitle1" color="text.secondary">
+                <Typography variant="h6" color="text.secondary">
                   {book.author}
                 </Typography>
               </Box>
-              {/* // TODO: Potentially link to create a discussion from this book */}
             </Box>
             <Typography
               variant="body1"
               color="text.secondary"
               sx={{
                 fontSize: "1.1rem",
-                maxHeight: expanded ? "none" : "3rem",
-                overflow: "hidden",
-                textOverflow: "ellipsis",
+                maxHeight: expanded ? "none" : "4.5rem",
+                // overflow: "hidden",
+                // textOverflow: "ellipsis",
                 display: "-webkit-box",
-                WebkitLineClamp: expanded ? "none" : 1,
+                WebkitLineClamp: expanded ? "none" : 2,
                 WebkitBoxOrient: "vertical",
               }}
             >
               {book.description}
             </Typography>
           </Box>
+          {/* delete these obviously... */}
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
           {expanded && (
             <>
               <Box sx={{ mt: 4 }}>
@@ -103,6 +109,17 @@ const BookCard = ({ book }) => {
           <Box
             sx={{ display: "flex", justifyContent: "flex-end", mt: 1, gap: 1 }}
           >
+            <Button
+              size="small"
+              variant="outlined"
+              sx={{
+                borderColor: "#9a0147",
+                color: "#9a0147",
+                "&:hover": { borderColor: "#9a0147", color: "#9a0147" },
+              }}
+            >
+              Open Discussion
+            </Button>
             <Button
               size="small"
               variant="outlined"
@@ -133,4 +150,4 @@ const BookCard = ({ book }) => {
   );
 };
 
-export default BookCard;
+export default FeaturedBookCard;

@@ -2,7 +2,7 @@ import { Container, CircularProgress, Typography } from "@mui/material";
 import { useGetBooks } from "../hooks/book";
 import ReviewModal from "../components/ReviewModal";
 import { useState } from "react";
-import FeaturedBook from "../components/FeaturedBook";
+import FeaturedBookCard from "../components/FeaturedBookCard";
 import BookCard from "../components/BookCard";
 
 const Featured = () => {
@@ -49,7 +49,8 @@ const Featured = () => {
         Featured
       </Typography>
 
-      <FeaturedBook book={firstBook} onReviewClick={handleModalOpen} />
+      <FeaturedBookCard book={firstBook} onReviewClick={handleModalOpen} />
+      <br />
 
       {otherBooks.map((book) => (
         <BookCard key={book.id} book={book} />
