@@ -9,7 +9,7 @@ import {
 } from "@mui/material";
 import { useRegisterUser } from "../hooks/users";
 
-const SignUpPage = () => {
+const Register = () => {
   const [email, setEmail] = useState("");
   const [preferredName, setPreferredName] = useState("");
   const [password, setPassword] = useState("");
@@ -135,4 +135,4 @@ const SignUpPage = () => {
   );
 };
 
-export default SignUpPage;
+export default Register;

@@ -11,7 +11,7 @@ import {
 import { Link } from "react-router-dom";
 import { useLoginUser } from "../hooks/users";
 
-const LoginPage = () => {
+const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -116,4 +116,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default Login;

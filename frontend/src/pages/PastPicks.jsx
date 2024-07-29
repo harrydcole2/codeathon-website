@@ -25,7 +25,7 @@ const PastPicks = () => {
   }
 
   return (
-    <Container>
+    <Container sx={{ px: 0 }}>
       <Typography
         variant="h4"
         fontWeight="bold"

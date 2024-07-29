@@ -7,7 +7,7 @@ const PastBookList = ({ books }) => {
     books.map((book) => book.title)
   );
   return (
-    <Container sx={{ mt: 4, width: "100%" }}>
+    <Container sx={{ mt: 4, width: "100%", px: 0 }}>
       <Box
         sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}
       >
