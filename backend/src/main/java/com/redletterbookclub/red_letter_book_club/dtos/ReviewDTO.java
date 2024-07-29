@@ -8,6 +8,7 @@ public class ReviewDTO {
     private Long userId;
     private int rating;
     private String content;
+    private String reviewer;
 
     public Long getId() {
         return id;
@@ -47,6 +48,14 @@ public class ReviewDTO {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public String getReviewer() {
+        return reviewer;
+    }
+
+    public void setReviewer(String reviewer) {
+        this.reviewer = reviewer;
     }
 }
 

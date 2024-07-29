@@ -4,8 +4,10 @@ import com.redletterbookclub.red_letter_book_club.dtos.BookDTO;
 import com.redletterbookclub.red_letter_book_club.dtos.ReviewDTO;
 import com.redletterbookclub.red_letter_book_club.models.Book;
 import com.redletterbookclub.red_letter_book_club.models.Review;
+import com.redletterbookclub.red_letter_book_club.models.User;
 import com.redletterbookclub.red_letter_book_club.repositories.BookRepository;
 import com.redletterbookclub.red_letter_book_club.repositories.ReviewRepository;
+import com.redletterbookclub.red_letter_book_club.repositories.UserRepository;
 import com.redletterbookclub.red_letter_book_club.utils.TokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,6 +27,8 @@ public class BookController {
     private BookRepository bookRepository;
     @Autowired
     private ReviewRepository reviewRepository;
+    @Autowired
+    private UserRepository userRepository;
     @Autowired
     private TokenUtil tokenUtil;
 
@@ -100,18 +104,25 @@ public class BookController {
         }
     }
     @PostMapping("/{id}/review")
-    public ResponseEntity<ReviewDTO> addReviewToBook(@PathVariable Long id, @RequestBody Review newReview) {
-        // Could validate for user role, but may let frontend handle it
-        // TODO: Use the review, or a DTO to connect the rating to who placed it
-        Optional<Book> book = bookRepository.findById(id);
-        if (book.isPresent()) {
-            newReview.setBook(book.get());
-            Review createdReview = reviewRepository.save(newReview);
-            ReviewDTO reviewDTO = convertToDTO(createdReview);
-            return ResponseEntity.status(201).body(reviewDTO);
-        } else {
-            return ResponseEntity.notFound().build();
+    public ResponseEntity<?> addReviewToBook(@PathVariable Long id, @RequestParam String token, @RequestBody Review newReview) {
+
+        String email = tokenUtil.extractEmail(token);
+        User user = userRepository.findByEmail(email).orElse(null);
+
+        if (user != null) {
+            Optional<Book> book = bookRepository.findById(id);
+            if (book.isPresent()) {
+                newReview.setBook(book.get());
+                newReview.setUser(user);
+                Review createdReview = reviewRepository.save(newReview);
+                ReviewDTO reviewDTO = convertToDTO(createdReview);
+                return ResponseEntity.status(201).body(reviewDTO);
+            } else {
+                return ResponseEntity.notFound().build();
+            }
         }
+
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Create an account first");
     }
 
     private BookDTO convertToDTO(Book book) {
@@ -140,6 +151,7 @@ public class BookController {
         reviewDTO.setUserId(review.getUser().getId());
         reviewDTO.setRating(review.getRating());
         reviewDTO.setContent(review.getContent());
+        reviewDTO.setReviewer(review.getUser().getPreferredName());
         return reviewDTO;
     }
 }

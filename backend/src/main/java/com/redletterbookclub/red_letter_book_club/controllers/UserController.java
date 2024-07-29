@@ -47,7 +47,7 @@ public class UserController {
 
     @GetMapping("/login")
     public ResponseEntity<?> login(@RequestParam String email, @RequestParam String password) {
-        User user = userRepository.findByUsername(email).orElse(null);
+        User user = userRepository.findByEmail(email).orElse(null);
 
         if (user != null && passwordEncoder.matches(password, user.getPassword())) {
             String token = tokenUtil.generateToken(email, user.getRole().getName());
@@ -61,7 +61,7 @@ public class UserController {
 
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody User user) {
-        if (userRepository.findByUsername(user.getEmail()).isPresent()) {
+        if (userRepository.findByEmail(user.getEmail()).isPresent()) {
             return ResponseEntity.badRequest().body("Username already exists");
         }
 
