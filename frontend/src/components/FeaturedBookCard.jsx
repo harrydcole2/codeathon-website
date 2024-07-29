@@ -36,22 +36,32 @@ const FeaturedBookCard = ({ book }) => {
         boxShadow: 3,
       }}
     >
-      <Box sx={{ display: "flex", height: "50%", bgcolor: "grey.300" }}>
-        <Box sx={{ flex: 1 }} />
+      <Box
+        sx={{
+          display: "flex",
+          bgcolor: "grey.300",
+          justifyContent: "center",
+          alignItems: "center",
+          height: 400, // TODO: Careful with height scaling
+        }}
+      >
         <CardMedia
           component="img"
-          sx={{ width: 200, objectFit: "cover" }} // TODO: needs to be dynamic and not set the height
+          sx={{
+            maxHeight: 400,
+            width: "auto",
+            maxWidth: "100%",
+            objectFit: "contain",
+          }}
           image={"keep-calm.jpg"}
           alt={book.title}
         />
-        <Box sx={{ flex: 1 }} />
       </Box>
       <CardContent
         sx={{
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
-          height: "50%",
           padding: "24px",
         }}
       >
@@ -75,7 +85,7 @@ const FeaturedBookCard = ({ book }) => {
         {expanded && (
           <>
             <Box sx={{ mt: 4 }}>
-              <Divider sx={{ mb: 1 }} />
+              <Divider sx={{ mb: 2 }} />
               {book.reviews.map((review) => (
                 <Review key={review.id} review={review} />
               ))}

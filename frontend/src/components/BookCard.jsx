@@ -35,24 +35,40 @@ const BookCard = ({ book }) => {
         display: "flex",
         width: "100%",
         borderRadius: 2,
-        padding: "0 2 2 0", // may change this?
         mb: 2,
         boxShadow: 3,
+        minHeight: 250, // Ensure the card is at least as tall as the image
       }}
     >
-      <CardMedia
-        component="img"
-        sx={{ width: 100, objectFit: "cover" }} // TODO: needs to be dynamic from book and not set the card height
-        image={"keep-calm.jpg"}
-        alt={book.title}
-      />
-      <Box sx={{ display: "flex", flexDirection: "column", flexGrow: 1, p: 1 }}>
+      <Box
+        sx={{
+          width: 200,
+          bgcolor: "grey.300",
+          display: "flex",
+          flexDirection: "column",
+        }}
+      >
+        <CardMedia
+          component="img"
+          sx={{
+            width: 200,
+            height: 250,
+            objectFit: "cover",
+          }}
+          image={"keep-calm.jpg"}
+          alt={book.title}
+        />
+        {/* Gray box to fill any extra space */}
+        <Box sx={{ flexGrow: 1, bgcolor: "grey.300" }} />
+      </Box>
+      <Box sx={{ display: "flex", flexDirection: "column", flexGrow: 1, p: 2 }}>
         <CardContent
           sx={{
             flex: "1 0 auto",
             display: "flex",
             flexDirection: "column",
             justifyContent: "space-between",
+            p: 0,
           }}
         >
           <Box>
@@ -72,7 +88,6 @@ const BookCard = ({ book }) => {
                   {book.author}
                 </Typography>
               </Box>
-              {/* // TODO: Potentially link to create a discussion from this book */}
             </Box>
             <Typography
               variant="body1"
@@ -83,7 +98,7 @@ const BookCard = ({ book }) => {
                 overflow: "hidden",
                 textOverflow: "ellipsis",
                 display: "-webkit-box",
-                WebkitLineClamp: expanded ? "none" : 1,
+                WebkitLineClamp: expanded ? "none" : 3,
                 WebkitBoxOrient: "vertical",
               }}
             >
@@ -93,7 +108,7 @@ const BookCard = ({ book }) => {
           {expanded && (
             <>
               <Box sx={{ mt: 4 }}>
-                <Divider sx={{ mb: 1 }} />
+                <Divider sx={{ mb: 2 }} />
                 {book.reviews.map((review) => (
                   <Review key={review.id} review={review} />
                 ))}
