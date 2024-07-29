@@ -1,132 +1,150 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import {
   Dialog,
   DialogTitle,
   DialogContent,
-  DialogActions,
-  Button,
   TextField,
+  Button,
+  IconButton,
   Box,
-  Typography,
 } from "@mui/material";
-import { useCreateBook } from "../hooks/book"; // Import the hook
+import CloseIcon from "@mui/icons-material/Close";
+import { useCreateBook } from "../hooks/book";
+import { AppContext } from "../components/AppContext";
 
 const NewBookModal = ({ open, onClose }) => {
-  const [title, setTitle] = useState("");
-  const [author, setAuthor] = useState("");
-  const [description, setDescription] = useState("");
-  const [pictureUrl, setPictureUrl] = useState("");
-  const [archived, setArchived] = useState(false);
-  const [datePublished, setDatePublished] = useState("");
-  const [genre, setGenre] = useState("");
-  const { mutate: createBook, isLoading, isError, error } = useCreateBook();
+  const { token } = useContext(AppContext);
+  const createBook = useCreateBook();
 
-  const handleSubmit = () => {
-    if (!title || !author || !description) {
-      alert("Title, author, and description are required.");
-      return;
+  const [newBook, setNewBook] = useState({
+    title: "",
+    author: "",
+    description: "",
+    pictureUrl: "",
+    archived: false,
+    datePublished: "",
+    genre: "",
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setNewBook((prevBook) => ({
+      ...prevBook,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = async () => {
+    try {
+      if (!newBook.title || !newBook.author || !newBook.description) {
+        alert("Title, author, and description are required.");
+        return;
+      }
+      createBook.mutate(newBook, token, {
+        onSuccess: () => {
+          setNewBook({
+            title: "",
+            author: "",
+            description: "",
+            pictureUrl: "",
+            archived: false,
+            datePublished: "",
+            genre: "",
+          });
+        },
+      });
+      onClose();
+    } catch (error) {
+      console.error("Error creating book:", error);
     }
-
-    const newBook = {
-      title,
-      author,
-      description,
-      pictureUrl,
-      archived,
-      datePublished,
-      genre,
-    };
-
-    createBook(newBook, {
-      onSuccess: () => {
-        onClose();
-        setTitle("");
-        setAuthor("");
-        setDescription("");
-        setPictureUrl("");
-        setArchived(false);
-        setDatePublished("");
-        setGenre("");
-      },
-    });
   };
 
   return (
-    <Dialog open={open} onClose={onClose} fullWidth>
-      <DialogTitle>Add New Book</DialogTitle>
+    <Dialog open={open} onClose={onClose} maxWidth="md" fullWidth>
+      <DialogTitle
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          bgcolor: "#9a0147",
+          color: "white",
+        }}
+      >
+        Add New Book
+        <IconButton onClick={onClose} sx={{ color: "white" }}>
+          <CloseIcon />
+        </IconButton>
+      </DialogTitle>
       <DialogContent>
         <Box
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            gap: 2,
-            p: 2,
-          }}
+          component="form"
+          sx={{ display: "flex", flexDirection: "column", gap: 2, mt: 2 }}
         >
           <TextField
             label="Title"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            required
+            name="title"
+            value={newBook.title}
+            onChange={handleChange}
             fullWidth
+            sx={{ mb: 2 }}
           />
           <TextField
             label="Author"
-            value={author}
-            onChange={(e) => setAuthor(e.target.value)}
-            required
+            name="author"
+            value={newBook.author}
+            onChange={handleChange}
             fullWidth
+            sx={{ mb: 2 }}
           />
           <TextField
             label="Description"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            required
+            name="description"
+            value={newBook.description}
+            onChange={handleChange}
             fullWidth
             multiline
             rows={4}
+            sx={{ mb: 2 }}
           />
           <TextField
             label="Picture URL"
-            value={pictureUrl}
-            onChange={(e) => setPictureUrl(e.target.value)}
+            name="pictureUrl"
+            value={newBook.pictureUrl}
+            onChange={handleChange}
             fullWidth
+            sx={{ mb: 2 }}
           />
           <TextField
             label="Date Published"
-            type="date"
-            value={datePublished}
-            onChange={(e) => setDatePublished(e.target.value)}
+            name="datePublished"
+            value={newBook.datePublished}
+            onChange={handleChange}
             fullWidth
+            type="date"
+            sx={{ mb: 2 }}
             InputLabelProps={{ shrink: true }}
           />
           <TextField
             label="Genre"
-            value={genre}
-            onChange={(e) => setGenre(e.target.value)}
+            name="genre"
+            value={newBook.genre}
+            onChange={handleChange}
             fullWidth
+            sx={{ mb: 2 }}
           />
-          <TextField
-            label="Archived"
-            type="checkbox"
-            checked={archived}
-            onChange={(e) => setArchived(e.target.checked)}
-            fullWidth
-          />
-          {isError && <Typography color="error">{error.message}</Typography>}
+          <Button
+            onClick={handleSubmit}
+            variant="contained"
+            sx={{
+              bgcolor: "#9a0147",
+              color: "white",
+              "&:hover": { bgcolor: "#7a0138" },
+            }}
+          >
+            Add Book
+          </Button>
         </Box>
       </DialogContent>
-      <DialogActions>
-        <Button onClick={onClose}>Cancel</Button>
-        <Button
-          onClick={handleSubmit}
-          variant="contained"
-          color="primary"
-          disabled={isLoading}
-        >
-          {isLoading ? "Creating..." : "Create Book"}
-        </Button>
-      </DialogActions>
     </Dialog>
   );
 };
