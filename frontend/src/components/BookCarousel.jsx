@@ -36,7 +36,7 @@ const BookCarousel = ({ books, reviews }) => {
     setOpenModal(false);
   };
 
-  const handleReviewSubmit = (review) => {
+  const handleReviewSubmit = () => {
     // Handle review submission logic here
     setOpenModal(false);
   };
