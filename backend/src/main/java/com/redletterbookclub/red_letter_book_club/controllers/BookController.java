@@ -55,6 +55,7 @@ public class BookController {
 
     @PostMapping
     public ResponseEntity<?> create(@RequestBody Book newBook, @RequestParam String token) {
+        // TODO: Server-side validation of created book
         String role = tokenUtil.extractRole(token);
         if (!role.equals("admin")) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Unauthorized");

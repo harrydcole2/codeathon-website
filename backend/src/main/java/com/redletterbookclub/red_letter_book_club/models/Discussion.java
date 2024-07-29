@@ -42,6 +42,7 @@ public class Discussion {
 
     @PrePersist
     protected void onCreate() {
+        contentQuill = content;
         createdAt = LocalDateTime.now();
         updatedAt = LocalDateTime.now();
     }

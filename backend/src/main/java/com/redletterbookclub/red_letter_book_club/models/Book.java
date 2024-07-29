@@ -51,6 +51,7 @@ public class Book {
 
     @PrePersist
     protected void onCreate() {
+        descriptionQuill = description;
         createdAt = LocalDateTime.now();
         updatedAt = LocalDateTime.now();
     }

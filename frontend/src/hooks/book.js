@@ -60,7 +60,6 @@ export const useCreateBook = () => {
   return useMutation((newBook) => createBook({ newBook, token }), {
     onSuccess: () => {
       queryClient.invalidateQueries("books");
-      // navigate(`/book/${data.id}`);
     },
   });
 };

@@ -7,6 +7,7 @@ import {
 } from "@mui/material";
 import { useGetBooks } from "../hooks/book";
 import ReviewModal from "../components/ReviewModal";
+import NewBookModal from "../components/NewBookModal";
 import { useContext, useState } from "react";
 import FeaturedBookCard from "../components/FeaturedBookCard";
 import BookCard from "../components/BookCard";
@@ -16,16 +17,25 @@ import { AppContext } from "../components/AppContext";
 const Featured = () => {
   const { data: books, isLoading, isError, error } = useGetBooks("featured");
   const { role } = useContext(AppContext);
-  const [openModal, setOpenModal] = useState(false);
+  const [openReviewModal, setOpenReviewModal] = useState(false);
+  const [openNewBookModal, setOpenNewBookModal] = useState(false);
   const [selectedBook, setSelectedBook] = useState(null);
 
-  const handleModalOpen = (book) => {
+  const handleReviewModalOpen = (book) => {
     setSelectedBook(book);
-    setOpenModal(true);
+    setOpenReviewModal(true);
   };
 
-  const handleModalClose = () => {
-    setOpenModal(false);
+  const handleReviewModalClose = () => {
+    setOpenReviewModal(false);
+  };
+
+  const handleNewBookModalOpen = () => {
+    setOpenNewBookModal(true);
+  };
+
+  const handleNewBookModalClose = () => {
+    setOpenNewBookModal(false);
   };
 
   if (isLoading) {
@@ -64,6 +74,7 @@ const Featured = () => {
           <Button
             size="small"
             variant="contained"
+            onClick={handleNewBookModalOpen}
             sx={{
               bgcolor: "#9a0147",
               color: "white",
@@ -81,20 +92,29 @@ const Featured = () => {
         )}
       </Box>
 
-      <FeaturedBookCard book={firstBook} onReviewClick={handleModalOpen} />
+      <FeaturedBookCard
+        book={firstBook}
+        onReviewClick={handleReviewModalOpen}
+      />
       <br />
 
       {otherBooks.map((book) => (
-        <BookCard key={book.id} book={book} onReviewClick={handleModalOpen} />
+        <BookCard
+          key={book.id}
+          book={book}
+          onReviewClick={handleReviewModalOpen}
+        />
       ))}
 
       {selectedBook && (
         <ReviewModal
-          open={openModal}
-          onClose={handleModalClose}
+          open={openReviewModal}
+          onClose={handleReviewModalClose}
           book={selectedBook}
         />
       )}
+
+      <NewBookModal open={openNewBookModal} onClose={handleNewBookModalClose} />
     </Container>
   );
 };
