@@ -107,7 +107,7 @@ const FeaturedBookCard = ({ book }) => {
                 "&:hover": { borderColor: "#9a0147", color: "#9a0147" },
               }}
             >
-              Open Discussion
+              Edit Book
             </Button>
           )}
           {role !== "" && (
