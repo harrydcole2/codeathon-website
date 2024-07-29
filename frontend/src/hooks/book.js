@@ -35,8 +35,11 @@ const deleteBook = async ({ id, token }) => {
   });
 };
 
-const addReviewToBook = async ({ id, newReview }) => {
-  const { data } = await api.post(`/book/${id}/review`, newReview);
+const addReviewToBook = async ({ id, newReview, token }) => {
+  const { data } = await api.post(
+    `/book/${id}/review?token=${token}`,
+    newReview
+  );
   return data;
 };
 
@@ -92,7 +95,7 @@ export const useAddReviewToBook = () => {
   const queryClient = useQueryClient();
 
   return useMutation(
-    ({ id, newReview }) => addReviewToBook({ id, newReview }),
+    ({ id, newReview, token }) => addReviewToBook({ id, newReview, token }),
     {
       onSuccess: () => {
         queryClient.invalidateQueries("books"); // Should I invalidate book query to refresh reviews?

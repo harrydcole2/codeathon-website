@@ -11,7 +11,7 @@ import {
 import Review from "./Review";
 import { AppContext } from "./AppContext";
 
-const BookCard = ({ book }) => {
+const BookCard = ({ book, onReviewClick }) => {
   const [expanded, setExpanded] = useState(false);
   const { role } = useContext(AppContext);
 
@@ -38,7 +38,7 @@ const BookCard = ({ book }) => {
         borderRadius: 2,
         mb: 2,
         boxShadow: 3,
-        minHeight: 250, // Ensure the card is at least as tall as the image
+        minHeight: 250,
       }}
     >
       <Box
@@ -56,10 +56,9 @@ const BookCard = ({ book }) => {
             height: 250,
             objectFit: "cover",
           }}
-          image={"bookstack.jpg"} //TODO: Render as alternative
+          image={"bookstack.jpg"}
           alt={book.title}
         />
-        {/* Gray box to fill any extra space */}
         <Box sx={{ flexGrow: 1, bgcolor: "grey.300" }} />
       </Box>
       <Box sx={{ display: "flex", flexDirection: "column", flexGrow: 1, p: 2 }}>
@@ -77,32 +76,17 @@ const BookCard = ({ book }) => {
               sx={{
                 display: "flex",
                 justifyContent: "space-between",
-                alignItems: "center",
                 mb: 1,
               }}
             >
-              <Box sx={{ display: "flex", alignItems: "center" }}>
-                <Typography variant="h6" component="div" sx={{ mr: 2 }}>
-                  {book.title}
-                </Typography>
-                <Typography variant="subtitle1" color="text.secondary">
-                  {book.author}
-                </Typography>
-              </Box>
+              <Typography variant="h6" component="div">
+                {book.title}
+              </Typography>
+              <Typography variant="subtitle2" color="text.secondary">
+                {book.author}
+              </Typography>
             </Box>
-            <Typography
-              variant="body1"
-              color="text.secondary"
-              sx={{
-                fontSize: "1.1rem",
-                maxHeight: expanded ? "none" : "3rem",
-                overflow: "hidden",
-                textOverflow: "ellipsis",
-                display: "-webkit-box",
-                WebkitLineClamp: expanded ? "none" : 3,
-                WebkitBoxOrient: "vertical",
-              }}
-            >
+            <Typography variant="body2" color="text.secondary">
               {book.description}
             </Typography>
           </Box>
@@ -124,9 +108,11 @@ const BookCard = ({ book }) => {
                 size="small"
                 variant="outlined"
                 sx={{
-                  borderColor: "#9a0147",
-                  color: "#9a0147",
-                  "&:hover": { borderColor: "#9a0147", color: "#9a0147" },
+                  display: "flex",
+                  justifyContent: "flex-end",
+                  gap: 1,
+                  mt: 1,
+                  mb: 2,
                 }}
               >
                 Edit Book
@@ -141,12 +127,12 @@ const BookCard = ({ book }) => {
                   color: "#9a0147",
                   "&:hover": { borderColor: "#9a0147", color: "#9a0147" },
                 }}
+                onClick={() => onReviewClick(book)}
               >
                 Review
               </Button>
             )}
             <Button
-              onClick={handleExpandClick}
               size="small"
               variant="contained"
               sx={{
@@ -154,6 +140,7 @@ const BookCard = ({ book }) => {
                 color: "white",
                 "&:hover": { bgcolor: "#7a0138" },
               }}
+              onClick={handleExpandClick}
             >
               {expanded ? "Show Less" : "Show More"}
             </Button>

@@ -148,10 +148,12 @@ public class BookController {
         ReviewDTO reviewDTO = new ReviewDTO();
         reviewDTO.setId(review.getId());
         reviewDTO.setBookId(review.getBook().getId());
-        reviewDTO.setUserId(review.getUser().getId());
         reviewDTO.setRating(review.getRating());
         reviewDTO.setContent(review.getContent());
-        reviewDTO.setReviewer(review.getUser().getPreferredName());
+        if (review.getUser() != null) {
+            reviewDTO.setUserId(review.getUser().getId());
+            reviewDTO.setReviewer(review.getUser().getPreferredName());
+        }
         return reviewDTO;
     }
 }

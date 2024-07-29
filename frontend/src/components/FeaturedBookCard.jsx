@@ -11,7 +11,7 @@ import {
 import Review from "./Review";
 import { AppContext } from "./AppContext";
 
-const FeaturedBookCard = ({ book }) => {
+const FeaturedBookCard = ({ book, onReviewClick }) => {
   const [expanded, setExpanded] = useState(false);
   const { role } = useContext(AppContext);
 
@@ -119,6 +119,7 @@ const FeaturedBookCard = ({ book }) => {
                 color: "#9a0147",
                 "&:hover": { borderColor: "#9a0147", color: "#9a0147" },
               }}
+              onClick={() => onReviewClick(book)}
             >
               Review
             </Button>

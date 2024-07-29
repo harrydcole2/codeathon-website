@@ -28,11 +28,6 @@ const Featured = () => {
     setOpenModal(false);
   };
 
-  const handleReviewSubmit = () => {
-    // Handle review submission logic here
-    setOpenModal(false);
-  };
-
   if (isLoading) {
     return (
       <Container>
@@ -90,15 +85,16 @@ const Featured = () => {
       <br />
 
       {otherBooks.map((book) => (
-        <BookCard key={book.id} book={book} />
+        <BookCard key={book.id} book={book} onReviewClick={handleModalOpen} />
       ))}
 
-      <ReviewModal
-        open={openModal}
-        onClose={handleModalClose}
-        onSubmit={handleReviewSubmit}
-        book={selectedBook}
-      />
+      {selectedBook && (
+        <ReviewModal
+          open={openModal}
+          onClose={handleModalClose}
+          book={selectedBook}
+        />
+      )}
     </Container>
   );
 };

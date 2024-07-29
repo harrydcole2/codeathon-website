@@ -1,61 +1,93 @@
-import { useState } from 'react';
-import { Modal, Box, Typography, TextField, Button, Rating } from '@mui/material';
+import { useState, useContext } from "react";
+import {
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  TextField,
+  Button,
+  Rating,
+} from "@mui/material";
+import { useAddReviewToBook } from "../hooks/book";
+import { AppContext } from "../components/AppContext";
 
-const ReviewModal = ({ open, onClose, onSubmit }) => {
-  const [newReview, setNewReview] = useState({ value: 0, review: '' });
+const ReviewModal = ({ open, onClose, book }) => {
+  const [rating, setRating] = useState(0);
+  const [content, setContent] = useState("");
+  const { token } = useContext(AppContext);
 
-  const handleReviewChange = (e) => {
-    const { name, value } = e.target;
-    setNewReview((prevReview) => ({
-      ...prevReview,
-      [name]: value,
-    }));
-  };
+  const addReviewMutation = useAddReviewToBook();
 
-  const handleReviewSubmit = () => {
-    onSubmit(newReview);
-    setNewReview({ value: 0, review: '' });
-    onClose();
+  const handleSubmit = () => {
+    if (rating === 0 || content.trim() === "") {
+      alert("Please provide a rating and content for the review.");
+      return;
+    }
+
+    addReviewMutation.mutate(
+      { id: book.id, newReview: { rating, content }, token },
+      {
+        onSuccess: () => {
+          onClose();
+          setRating(0);
+          setContent("");
+        },
+        onError: (error) => {
+          alert(`Failed to add review: ${error.message}`);
+        },
+      }
+    );
   };
 
   return (
-    <Modal
-      open={open}
-      onClose={onClose}
-      aria-labelledby="modal-title"
-      aria-describedby="modal-description"
-    >
-      <Box sx={{
-        position: 'absolute',
-        top: '50%',
-        left: '50%',
-        transform: 'translate(-50%, -50%)',
-        width: 400,
-        bgcolor: 'background.paper',
-        border: '2px solid #000',
-        boxShadow: 24,
-        p: 4
-      }}>
-        <Typography id="modal-title" variant="h6" component="h2">
-          Leave a Review
-        </Typography>
-        <Rating name="half-rating" defaultValue={2.5} precision={0.5} />
+    <Dialog open={open} onClose={onClose}>
+      <DialogTitle fontWeight="bold">Rate {book.title}</DialogTitle>
+      <DialogContent>
+        <Rating
+          value={rating}
+          onChange={(_, newValue) => setRating(newValue)}
+          precision={1}
+          sx={{ mb: 2 }}
+        />
         <TextField
-          fullWidth
-          id="review"
-          name="review"
-          label="Review"
           multiline
           rows={4}
-          value={newReview.review}
-          onChange={handleReviewChange}
-          sx={{ mt: 2 }}
+          variant="outlined"
+          fullWidth
+          label="Review"
+          value={content}
+          onChange={(e) => setContent(e.target.value)}
+          sx={{ mb: 2 }}
         />
-        <Button onClick={handleReviewSubmit} variant="contained" sx={{ mt: 2 }}>
+      </DialogContent>
+      <DialogActions>
+        <Button
+          onClick={onClose}
+          sx={{
+            color: "#9a0147",
+            "&:hover": {
+              bgcolor: "#f5f5f5",
+            },
+          }}
+        >
+          Cancel
+        </Button>
+        <Button
+          onClick={handleSubmit}
+          variant="contained"
+          color="primary"
+          disabled={addReviewMutation.isLoading}
+          sx={{
+            bgcolor: "#9a0147",
+            "&:hover": {
+              bgcolor: "#7a0138",
+            },
+          }}
+        >
           Submit
         </Button>
-      </Box>
-    </Modal>
+      </DialogActions>
+    </Dialog>
   );
 };
 
