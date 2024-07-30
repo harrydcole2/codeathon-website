@@ -16,6 +16,7 @@ const getDiscussionById = async (id) => {
 };
 
 const createDiscussion = async ({ newDiscussion, token }) => {
+  console.log(newDiscussion);
   const { data } = await api.post("/discussion", newDiscussion, {
     params: { token },
   });

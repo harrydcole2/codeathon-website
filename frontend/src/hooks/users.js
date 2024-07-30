@@ -56,8 +56,6 @@ export const useLoginUser = () => {
 
   return useMutation((credentials) => validateUser(credentials), {
     onSuccess: (data) => {
-      console.log("Successful login", data);
-
       setToken(data.token);
       setRole(data.roleName);
       navigate("/");
