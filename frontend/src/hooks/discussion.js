@@ -24,6 +24,7 @@ const createDiscussion = async ({ newDiscussion, token }) => {
 };
 
 const updateDiscussion = async ({ id, updatedDiscussion, token }) => {
+  console.log("updated", updatedDiscussion);
   const { data } = await api.put(`/discussion/${id}`, updatedDiscussion, {
     params: { token },
   });
@@ -31,7 +32,7 @@ const updateDiscussion = async ({ id, updatedDiscussion, token }) => {
 };
 
 const deleteDiscussion = async ({ id, token }) => {
-  await api.delete(`/discussion/${id}`, {
+  await api.delete(`/discussion/${parseInt(id)}`, {
     params: { token },
   });
 };
@@ -96,7 +97,7 @@ export const useDeleteDiscussion = () => {
   const queryClient = useQueryClient();
   const { token, setRole, setToken } = useContext(AppContext);
 
-  return useMutation((id) => deleteDiscussion({ id, token }), {
+  return useMutation(({ id }) => deleteDiscussion({ id, token }), {
     onSuccess: () => {
       queryClient.invalidateQueries("discussions");
     },

@@ -40,12 +40,25 @@ const DiscussionItem = ({ discussion }) => {
               variant="outlined"
               onClick={handleOpenEditModal}
               size="small"
-              sx={{ mr: 1 }}
+              sx={{
+                mr: 1,
+                borderColor: "#9a0147",
+                color: "#9a0147",
+                "&:hover": { borderColor: "#9a0147", color: "#9a0147" },
+              }}
             >
               Edit
             </Button>
           )}
-          <Button variant="outlined" size="small">
+          <Button
+            variant="outlined"
+            size="small"
+            sx={{
+              borderColor: "#9a0147",
+              color: "#9a0147",
+              "&:hover": { borderColor: "#9a0147", color: "#9a0147" },
+            }}
+          >
             Comment
           </Button>
         </Box>

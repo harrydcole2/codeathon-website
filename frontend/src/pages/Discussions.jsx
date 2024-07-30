@@ -39,6 +39,14 @@ const Discussions = () => {
             variant="contained"
             startIcon={<AddIcon />}
             onClick={handleOpenModal}
+            sx={{
+              bgcolor: "#9a0147",
+              color: "white",
+              "&:hover": { bgcolor: "#7a0138" },
+              display: "flex",
+              alignItems: "center",
+              gap: 1,
+            }}
           >
             Add Discussion
           </Button>

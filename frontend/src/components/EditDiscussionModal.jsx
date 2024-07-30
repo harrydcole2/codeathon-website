@@ -65,6 +65,7 @@ const EditDiscussionModal = ({ open, onClose, discussion }) => {
 
   const handleDelete = async () => {
     try {
+      console.log(discussion);
       deleteDiscussionMutation.mutate(
         { id: discussion.id, token },
         {
