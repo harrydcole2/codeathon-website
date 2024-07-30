@@ -1,15 +1,19 @@
 import { useContext, useState } from "react";
 import { Box, Typography, Chip, Divider, Button } from "@mui/material";
 import EditDiscussionModal from "./EditDiscussionModal";
+import AddCommentModal from "./AddCommentModal";
 import DiscussionComment from "./DiscussionComment";
 import { AppContext } from "./AppContext";
 
 const DiscussionItem = ({ discussion }) => {
   const [openEditModal, setOpenEditModal] = useState(false);
+  const [openCommentModal, setOpenCommentModal] = useState(false);
   const { role } = useContext(AppContext);
 
   const handleOpenEditModal = () => setOpenEditModal(true);
   const handleCloseEditModal = () => setOpenEditModal(false);
+  const handleOpenCommentModal = () => setOpenCommentModal(true);
+  const handleCloseCommentModal = () => setOpenCommentModal(false);
 
   return (
     <Box>
@@ -53,6 +57,7 @@ const DiscussionItem = ({ discussion }) => {
           <Button
             variant="outlined"
             size="small"
+            onClick={handleOpenCommentModal}
             sx={{
               borderColor: "#9a0147",
               color: "#9a0147",
@@ -68,6 +73,11 @@ const DiscussionItem = ({ discussion }) => {
         open={openEditModal}
         onClose={handleCloseEditModal}
         discussion={discussion}
+      />
+      <AddCommentModal
+        open={openCommentModal}
+        onClose={handleCloseCommentModal}
+        discussionId={discussion.id}
       />
     </Box>
   );
