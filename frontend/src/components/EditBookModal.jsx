@@ -21,10 +21,10 @@ const EditBookModal = ({ open, onClose, book }) => {
     title: book.title,
     author: book.author,
     description: book.description,
-    pictureUrl: book.pictureUrl,
-    archived: book.archived,
-    datePublished: book.datePublished,
-    genre: book.genre,
+    pictureUrl: book.pictureUrl || "",
+    archived: book.archived || false,
+    datePublished: book.datePublished || "",
+    genre: book.genre || "",
   });
 
   const handleChange = (e) => {
@@ -56,13 +56,12 @@ const EditBookModal = ({ open, onClose, book }) => {
 
   const handleDelete = async () => {
     try {
-      if (window.confirm("Are you sure you want to delete this book?")) {
-        deleteBookMutation.mutate(book.id, token, {
-          onSuccess: () => {
-            onClose();
-          },
-        });
-      }
+      // if (window.confirm("Are you sure you want to delete this book?")) {
+      deleteBookMutation.mutate(book.id, token, {
+        onSuccess: () => {
+          onClose();
+        },
+      });
     } catch (error) {
       console.error("Error deleting book:", error);
     }

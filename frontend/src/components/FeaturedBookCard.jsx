@@ -54,7 +54,7 @@ const FeaturedBookCard = ({ book, onReviewClick, onEditClick }) => {
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
-          padding: "24px",
+          padding: "16px",
         }}
       >
         <Box>

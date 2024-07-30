@@ -52,8 +52,6 @@ const Featured = () => {
     setBookToEdit(null);
   };
 
-  console.log(books);
-
   if (isLoading) {
     return (
       <Container>

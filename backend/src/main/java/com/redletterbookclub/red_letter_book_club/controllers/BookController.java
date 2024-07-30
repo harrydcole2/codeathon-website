@@ -37,9 +37,9 @@ public class BookController {
         List<Book> books;
 
         if (type.equals("featured")) {
-            books = bookRepository.findByArchivedFalse();
+            books = bookRepository.findByArchivedFalseOrderByCreatedAtDesc();
         } else if (type.equals("archived")) {
-            books = bookRepository.findAllByArchivedTrue();
+            books = bookRepository.findByArchivedTrueOrderByCreatedAtDesc();
         } else if (type.equals("all")) {
             books = bookRepository.findAll();
         } else {
