@@ -127,11 +127,12 @@ public class DiscussionController {
 
         DiscussionDTO discussionDTO = new DiscussionDTO();
         discussionDTO.setTitle(discussion.getTitle());
-        discussionDTO.setUserPreferredName(discussion.getUser().getPreferredName());
+//        discussionDTO.setUserPreferredName(discussion.getUser().getPreferredName());
         discussionDTO.setTopicTag(discussion.getTopicTag());
         discussionDTO.setContent(discussion.getContent());
         discussionDTO.setArchived(discussion.isArchived());
         discussionDTO.setComments(comments);
+        discussionDTO.setId(discussion.getId());
         return discussionDTO;
     }
 

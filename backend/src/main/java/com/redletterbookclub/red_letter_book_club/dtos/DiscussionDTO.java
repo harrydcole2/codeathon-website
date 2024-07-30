@@ -3,6 +3,7 @@ package com.redletterbookclub.red_letter_book_club.dtos;
 import java.util.List;
 
 public class DiscussionDTO {
+    private Long id;
     private String title;
     private String userPreferredName;
     private String topicTag;
@@ -10,10 +11,9 @@ public class DiscussionDTO {
     private boolean archived;
     private List<CommentDTO> comments;
 
-    // Constructors
     public DiscussionDTO() {}
 
-    public DiscussionDTO(String title, String userPreferredName, String topicTag,
+    public DiscussionDTO(Long id, String title, String userPreferredName, String topicTag,
                          String content, boolean archived, List<CommentDTO> comments) {
         this.title = title;
         this.userPreferredName = userPreferredName;
@@ -23,7 +23,14 @@ public class DiscussionDTO {
         this.comments = comments;
     }
 
-    // Getters and Setters
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public String getTitle() {
         return title;
     }

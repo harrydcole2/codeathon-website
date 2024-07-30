@@ -69,14 +69,8 @@ const Discussions = () => {
           )}
           {discussions && discussions.length > 0 && <Divider />}
           {discussions &&
-            discussions.map((discussion, index) => (
-              <DiscussionItem
-                key={discussion.id || index}
-                title={discussion.title}
-                topicTag={discussion.topicTag}
-                content={discussion.content}
-                comments={discussion.comments}
-              />
+            discussions.map((discussion) => (
+              <DiscussionItem key={discussion.id} discussion={discussion} />
             ))}
         </Box>
       </Paper>
