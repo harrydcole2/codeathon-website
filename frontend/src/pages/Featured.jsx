@@ -1,3 +1,4 @@
+import { useContext, useState } from "react";
 import {
   Container,
   CircularProgress,
@@ -8,7 +9,7 @@ import {
 import { useGetBooks } from "../hooks/book";
 import ReviewModal from "../components/ReviewModal";
 import NewBookModal from "../components/NewBookModal";
-import { useContext, useState } from "react";
+import EditBookModal from "../components/EditBookModal";
 import FeaturedBookCard from "../components/FeaturedBookCard";
 import BookCard from "../components/BookCard";
 import Iconify from "../components/Iconify";
@@ -19,7 +20,9 @@ const Featured = () => {
   const { role } = useContext(AppContext);
   const [openReviewModal, setOpenReviewModal] = useState(false);
   const [openNewBookModal, setOpenNewBookModal] = useState(false);
+  const [openEditBookModal, setOpenEditBookModal] = useState(false);
   const [selectedBook, setSelectedBook] = useState(null);
+  const [bookToEdit, setBookToEdit] = useState(null);
 
   const handleReviewModalOpen = (book) => {
     setSelectedBook(book);
@@ -28,6 +31,7 @@ const Featured = () => {
 
   const handleReviewModalClose = () => {
     setOpenReviewModal(false);
+    setSelectedBook(null);
   };
 
   const handleNewBookModalOpen = () => {
@@ -37,6 +41,18 @@ const Featured = () => {
   const handleNewBookModalClose = () => {
     setOpenNewBookModal(false);
   };
+
+  const handleEditBookModalOpen = (book) => {
+    setBookToEdit(book);
+    setOpenEditBookModal(true);
+  };
+
+  const handleEditBookModalClose = () => {
+    setOpenEditBookModal(false);
+    setBookToEdit(null);
+  };
+
+  console.log(books);
 
   if (isLoading) {
     return (
@@ -95,6 +111,7 @@ const Featured = () => {
       <FeaturedBookCard
         book={firstBook}
         onReviewClick={handleReviewModalOpen}
+        onEditClick={handleEditBookModalOpen}
       />
       <br />
 
@@ -103,6 +120,7 @@ const Featured = () => {
           key={book.id}
           book={book}
           onReviewClick={handleReviewModalOpen}
+          onEditClick={handleEditBookModalOpen}
         />
       ))}
 
@@ -115,6 +133,14 @@ const Featured = () => {
       )}
 
       <NewBookModal open={openNewBookModal} onClose={handleNewBookModalClose} />
+
+      {bookToEdit && (
+        <EditBookModal
+          open={openEditBookModal}
+          onClose={handleEditBookModalClose}
+          book={bookToEdit}
+        />
+      )}
     </Container>
   );
 };

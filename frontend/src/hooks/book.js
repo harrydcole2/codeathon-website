@@ -55,18 +55,22 @@ export const useGetBookById = (id) => {
 
 export const useCreateBook = () => {
   const queryClient = useQueryClient();
-  const { token } = useContext(AppContext);
+  const { token, setToken, setRole } = useContext(AppContext);
 
   return useMutation((newBook) => createBook({ newBook, token }), {
     onSuccess: () => {
       queryClient.invalidateQueries("books");
+    },
+    onError: () => {
+      setToken("");
+      setRole("");
     },
   });
 };
 
 export const useUpdateBook = () => {
   const queryClient = useQueryClient();
-  const { token } = useContext(AppContext);
+  const { token, setToken, setRole } = useContext(AppContext);
 
   return useMutation(
     ({ id, updatedBook }) => updateBook({ id, updatedBook, token }),
@@ -75,29 +79,42 @@ export const useUpdateBook = () => {
         queryClient.invalidateQueries(["book", data.id]);
         queryClient.invalidateQueries("books");
       },
+      onError: () => {
+        setToken("");
+        setRole("");
+      },
     }
   );
 };
 
 export const useDeleteBook = () => {
   const queryClient = useQueryClient();
-  const { token } = useContext(AppContext);
+  const { token, setRole, setToken } = useContext(AppContext);
 
   return useMutation((id) => deleteBook({ id, token }), {
     onSuccess: () => {
       queryClient.invalidateQueries("books");
+    },
+    onError: () => {
+      setToken("");
+      setRole("");
     },
   });
 };
 
 export const useAddReviewToBook = () => {
   const queryClient = useQueryClient();
+  const { setRole, setToken } = useContext(AppContext);
 
   return useMutation(
     ({ id, newReview, token }) => addReviewToBook({ id, newReview, token }),
     {
       onSuccess: () => {
         queryClient.invalidateQueries("books"); // Should I invalidate book query to refresh reviews?
+      },
+      onError: () => {
+        setToken("");
+        setRole("");
       },
     }
   );

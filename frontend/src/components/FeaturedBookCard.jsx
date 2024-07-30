@@ -11,15 +11,13 @@ import {
 import Review from "./Review";
 import { AppContext } from "./AppContext";
 
-const FeaturedBookCard = ({ book, onReviewClick }) => {
+const FeaturedBookCard = ({ book, onReviewClick, onEditClick }) => {
   const [expanded, setExpanded] = useState(false);
   const { role } = useContext(AppContext);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
-
-  console.log(book);
 
   return (
     <Card
@@ -36,7 +34,7 @@ const FeaturedBookCard = ({ book, onReviewClick }) => {
           bgcolor: "grey.300",
           justifyContent: "center",
           alignItems: "center",
-          height: 400, // TODO: Careful with height scaling
+          height: 400,
         }}
       >
         <CardMedia
@@ -47,7 +45,7 @@ const FeaturedBookCard = ({ book, onReviewClick }) => {
             maxWidth: "100%",
             objectFit: "contain",
           }}
-          image={"book-wallpaper.jpg"} //TODO: Allow the image to come from the book
+          image={book.pictureUrl || "book-wallpaper.jpg"}
           alt={book.title}
         />
       </Box>
@@ -98,6 +96,7 @@ const FeaturedBookCard = ({ book, onReviewClick }) => {
                 color: "#9a0147",
                 "&:hover": { borderColor: "#9a0147", color: "#9a0147" },
               }}
+              onClick={() => onEditClick(book)}
             >
               Edit Book
             </Button>

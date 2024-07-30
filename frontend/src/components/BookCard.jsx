@@ -11,7 +11,7 @@ import {
 import Review from "./Review";
 import { AppContext } from "./AppContext";
 
-const BookCard = ({ book, onReviewClick }) => {
+const BookCard = ({ book, onReviewClick, onEditClick }) => {
   const [expanded, setExpanded] = useState(false);
   const { role } = useContext(AppContext);
 
@@ -45,7 +45,7 @@ const BookCard = ({ book, onReviewClick }) => {
             height: 250,
             objectFit: "cover",
           }}
-          image={"bookstack.jpg"}
+          image={book.pictureUrl || "bookstack.jpg"}
           alt={book.title}
         />
         <Box sx={{ flexGrow: 1, bgcolor: "grey.300" }} />
@@ -113,6 +113,7 @@ const BookCard = ({ book, onReviewClick }) => {
                   color: "#9a0147",
                   "&:hover": { borderColor: "#9a0147", color: "#9a0147" },
                 }}
+                onClick={() => onEditClick(book)}
               >
                 Edit Book
               </Button>

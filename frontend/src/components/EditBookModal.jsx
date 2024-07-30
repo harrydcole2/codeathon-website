@@ -1,179 +1,177 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useContext } from "react";
 import {
-  Modal,
-  Box,
-  Typography,
+  Dialog,
+  DialogTitle,
+  DialogContent,
   TextField,
   Button,
-  CircularProgress,
+  IconButton,
+  Box,
 } from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
 import { useUpdateBook, useDeleteBook } from "../hooks/book";
-import { AppContext } from "./AppContext";
+import { AppContext } from "../components/AppContext";
 
 const EditBookModal = ({ open, onClose, book }) => {
-  book = {
-    title: "",
-    author: "",
-    description: "",
-    pictureUrl: "",
-    archived: false,
-    datePublished: "",
-    genre: "",
-  };
-
+  const { token } = useContext(AppContext);
   const updateBookMutation = useUpdateBook();
   const deleteBookMutation = useDeleteBook();
-  const { token } = useContext(AppContext);
 
-  const [title, setTitle] = useState(book.title);
-  const [author, setAuthor] = useState(book.author);
-  const [description, setDescription] = useState(book.description);
-  const [pictureUrl, setPictureUrl] = useState(book.pictureUrl);
-  const [archived, setArchived] = useState(book.archived);
-  const [dataPublished, setDataPublished] = useState(book.dataPublished);
-  const [genre, setGenre] = useState(book.genre);
+  const [editedBook, setEditedBook] = useState({
+    title: book.title,
+    author: book.author,
+    description: book.description,
+    pictureUrl: book.pictureUrl,
+    archived: book.archived,
+    datePublished: book.datePublished,
+    genre: book.genre,
+  });
 
-  const handleUpdate = () => {
-    updateBookMutation.mutate(
-      {
-        id: book.id,
-        updatedBook: {
-          title,
-          author,
-          description,
-          pictureUrl,
-          archived,
-          dataPublished,
-          genre,
-        },
-        token,
-      },
-      {
-        onSuccess: () => {
-          onClose();
-        },
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setEditedBook((prevBook) => ({
+      ...prevBook,
+      [name]: value,
+    }));
+  };
+
+  const handleUpdate = async () => {
+    try {
+      if (!editedBook.title || !editedBook.author || !editedBook.description) {
+        alert("Title, author, and description are required.");
+        return;
       }
-    );
-  };
-
-  const handleDelete = () => {
-    deleteBookMutation.mutate(book.id, {
-      onSuccess: () => {
-        onClose();
-      },
-    });
-  };
-
-  useEffect(() => {
-    if (book) {
-      setTitle(book.title);
-      setAuthor(book.author);
-      setDescription(book.description);
-      setPictureUrl(book.pictureUrl);
-      setArchived(book.archived);
-      setDataPublished(book.dataPublished);
-      setGenre(book.genre);
+      updateBookMutation.mutate(
+        { id: book.id, updatedBook: editedBook, token },
+        {
+          onSuccess: () => {
+            onClose();
+          },
+        }
+      );
+    } catch (error) {
+      console.error("Error updating book:", error);
     }
-  }, [book]);
+  };
+
+  const handleDelete = async () => {
+    try {
+      if (window.confirm("Are you sure you want to delete this book?")) {
+        deleteBookMutation.mutate(book.id, token, {
+          onSuccess: () => {
+            onClose();
+          },
+        });
+      }
+    } catch (error) {
+      console.error("Error deleting book:", error);
+    }
+  };
 
   return (
-    <Modal
-      open={open}
-      onClose={onClose}
-      sx={{
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-      }}
-    >
-      <Box
+    <Dialog open={open} onClose={onClose} maxWidth="md" fullWidth>
+      <DialogTitle
         sx={{
-          width: "90%",
-          maxWidth: 600,
-          bgcolor: "background.paper",
-          p: 3,
-          borderRadius: 2,
-          boxShadow: 24,
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          bgcolor: "#9a0147",
+          color: "white",
         }}
       >
-        <Typography variant="h6" component="h2" gutterBottom>
-          Edit Book
-        </Typography>
-        <TextField
-          label="Title"
-          fullWidth
-          margin="normal"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-        />
-        <TextField
-          label="Author"
-          fullWidth
-          margin="normal"
-          value={author}
-          onChange={(e) => setAuthor(e.target.value)}
-        />
-        <TextField
-          label="Description"
-          fullWidth
-          margin="normal"
-          multiline
-          rows={4}
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-        />
-        <TextField
-          label="Picture URL"
-          fullWidth
-          margin="normal"
-          value={pictureUrl}
-          onChange={(e) => setPictureUrl(e.target.value)}
-        />
-        <TextField
-          label="Published Date"
-          fullWidth
-          margin="normal"
-          type="date"
-          value={dataPublished}
-          onChange={(e) => setDataPublished(e.target.value)}
-          InputLabelProps={{ shrink: true }}
-        />
-        <TextField
-          label="Genre"
-          fullWidth
-          margin="normal"
-          value={genre}
-          onChange={(e) => setGenre(e.target.value)}
-        />
-        <Box sx={{ display: "flex", gap: 1, mt: 2 }}>
-          <Button
-            variant="outlined"
-            color="error"
-            onClick={handleDelete}
-            disabled={deleteBookMutation.isLoading}
-            sx={{ width: "50%" }}
+        Edit Book
+        <IconButton onClick={onClose} sx={{ color: "white" }}>
+          <CloseIcon />
+        </IconButton>
+      </DialogTitle>
+      <DialogContent>
+        <Box
+          component="form"
+          sx={{ display: "flex", flexDirection: "column", gap: 2, mt: 2 }}
+        >
+          <TextField
+            label="Title"
+            name="title"
+            value={editedBook.title}
+            onChange={handleChange}
+            fullWidth
+            sx={{ mb: 2 }}
+          />
+          <TextField
+            label="Author"
+            name="author"
+            value={editedBook.author}
+            onChange={handleChange}
+            fullWidth
+            sx={{ mb: 2 }}
+          />
+          <TextField
+            label="Description"
+            name="description"
+            value={editedBook.description}
+            onChange={handleChange}
+            fullWidth
+            multiline
+            rows={4}
+            sx={{ mb: 2 }}
+          />
+          <TextField
+            label="Picture URL"
+            name="pictureUrl"
+            value={editedBook.pictureUrl}
+            onChange={handleChange}
+            fullWidth
+            sx={{ mb: 2 }}
+          />
+          <TextField
+            label="Date Published"
+            name="datePublished"
+            value={editedBook.datePublished}
+            onChange={handleChange}
+            fullWidth
+            type="date"
+            sx={{ mb: 2 }}
+            InputLabelProps={{ shrink: true }}
+          />
+          <TextField
+            label="Genre"
+            name="genre"
+            value={editedBook.genre}
+            onChange={handleChange}
+            fullWidth
+            sx={{ mb: 2 }}
+          />
+          <Box
+            sx={{ display: "flex", justifyContent: "space-between", gap: 2 }}
           >
-            {deleteBookMutation.isLoading ? (
-              <CircularProgress size={24} />
-            ) : (
-              "Delete"
-            )}
-          </Button>
-          <Button
-            variant="contained"
-            sx={{ bgcolor: "#9a0147", color: "white", width: "50%" }}
-            onClick={handleUpdate}
-            disabled={updateBookMutation.isLoading}
-          >
-            {updateBookMutation.isLoading ? (
-              <CircularProgress size={24} />
-            ) : (
-              "Update"
-            )}
-          </Button>
+            <Button
+              onClick={handleDelete}
+              variant="outlined"
+              sx={{
+                flex: 1,
+                borderColor: "#9a0147",
+                color: "#9a0147",
+                "&:hover": { borderColor: "#7a0138", color: "#7a0138" },
+              }}
+            >
+              Delete Book
+            </Button>
+            <Button
+              onClick={handleUpdate}
+              variant="contained"
+              sx={{
+                flex: 1,
+                bgcolor: "#9a0147",
+                color: "white",
+                "&:hover": { bgcolor: "#7a0138" },
+              }}
+            >
+              Update Book
+            </Button>
+          </Box>
         </Box>
-      </Box>
-    </Modal>
+      </DialogContent>
+    </Dialog>
   );
 };
 
