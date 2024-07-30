@@ -36,7 +36,7 @@ const DiscussionItem = ({ discussion }) => {
         </Typography>
         {discussion.comments &&
           discussion.comments.map((comment, index) => (
-            <DiscussionComment key={index} {...comment} />
+            <DiscussionComment key={index} comment={comment} />
           ))}
         <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 2 }}>
           {role === "admin" && (
@@ -54,18 +54,20 @@ const DiscussionItem = ({ discussion }) => {
               Edit
             </Button>
           )}
-          <Button
-            variant="outlined"
-            size="small"
-            onClick={handleOpenCommentModal}
-            sx={{
-              borderColor: "#9a0147",
-              color: "#9a0147",
-              "&:hover": { borderColor: "#9a0147", color: "#9a0147" },
-            }}
-          >
-            Comment
-          </Button>
+          {role !== "" && (
+            <Button
+              variant="outlined"
+              size="small"
+              onClick={handleOpenCommentModal}
+              sx={{
+                borderColor: "#9a0147",
+                color: "#9a0147",
+                "&:hover": { borderColor: "#9a0147", color: "#9a0147" },
+              }}
+            >
+              Comment
+            </Button>
+          )}
         </Box>
       </Box>
       <Divider />

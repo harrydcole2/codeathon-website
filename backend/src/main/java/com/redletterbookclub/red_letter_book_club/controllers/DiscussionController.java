@@ -34,7 +34,7 @@ public class DiscussionController {
 
     @GetMapping
     public ResponseEntity<?> getAll() {
-        List<Discussion> discussions = discussionRepository.findAll();
+        List<Discussion> discussions = discussionRepository.findAllByOrderByUpdatedAtDesc();
         List<DiscussionDTO> discussionDTOs = discussions.stream()
                 .map(this::convertToDTO)
                 .collect(Collectors.toList());

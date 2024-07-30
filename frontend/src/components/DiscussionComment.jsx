@@ -1,7 +1,7 @@
 import { Box, Typography, Paper, Stack } from "@mui/material";
 import Iconify from "./Iconify";
 
-const DiscussionComment = ({ content, user }) => (
+const DiscussionComment = ({ comment }) => (
   <Box sx={{ mb: 2 }}>
     <Paper
       elevation={1}
@@ -33,10 +33,10 @@ const DiscussionComment = ({ content, user }) => (
             sx={{ mr: 1, color: "#9a0147", fontSize: 20 }}
           />
           <Typography variant="subtitle2" sx={{ mb: 0.5 }}>
-            {user}
+            {comment.userPreferredName}
           </Typography>
         </Stack>
-        <Typography variant="body2">{content}</Typography>
+        <Typography variant="body2">{comment.content}</Typography>
       </Stack>
     </Paper>
   </Box>
