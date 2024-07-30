@@ -64,6 +64,20 @@ const Featured = () => {
   if (isError) {
     return (
       <Container>
+        <Box
+          sx={{
+            backgroundColor: "#ffeb3b",
+            padding: 2,
+            borderRadius: 1,
+          }}
+        >
+          <Typography fontWeight="bold">
+            {" "}
+            🚧 Our online store is currently under maintenance. We are working
+            hard to bring you a new and improved shopping experience. Stay
+            tuned, exciting things are coming soon! 🚧
+          </Typography>
+        </Box>
         <Typography>Error fetching featured books: {error.message}</Typography>
       </Container>
     );

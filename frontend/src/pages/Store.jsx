@@ -28,16 +28,7 @@ const Store = () => {
 
   return (
     <Box sx={{ padding: 4 }}>
-      {
-        //TODO: have actual store items from the database, and get rid of error message
-        /* <Typography
-        variant="h4"
-        fontWeight="bold"
-        sx={{ mb: 4, textAlign: "center" }}
-      >
-        Store
-      </Typography> */
-      }
+      {/* //TODO: have actual store items from the database, and get rid of error message */}
       <Box
         sx={{
           backgroundColor: "#ffeb3b",
@@ -47,9 +38,8 @@ const Store = () => {
       >
         <Typography fontWeight="bold">
           {" "}
-          🚧 Our online store is currently under maintenance. We are working
-          hard to bring you a new and improved shopping experience. Stay tuned,
-          exciting things are coming soon! 🚧
+          🚧 Our featured books section is currently under maintenance. Come
+          back later for more books! 🚧
         </Typography>
       </Box>
       <StoreCarousel items={storeItems} />

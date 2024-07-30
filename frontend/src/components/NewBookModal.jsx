@@ -7,6 +7,10 @@ import {
   Button,
   IconButton,
   Box,
+  FormControl,
+  RadioGroup,
+  FormControlLabel,
+  Radio,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { useCreateBook } from "../hooks/book";
@@ -31,6 +35,13 @@ const NewBookModal = ({ open, onClose }) => {
     setNewBook((prevBook) => ({
       ...prevBook,
       [name]: value,
+    }));
+  };
+
+  const handleArchivedChange = (e) => {
+    setNewBook((prevBook) => ({
+      ...prevBook,
+      archived: e.target.value === "true",
     }));
   };
 
@@ -132,6 +143,25 @@ const NewBookModal = ({ open, onClose }) => {
             fullWidth
             sx={{ mb: 2 }}
           />
+          <FormControl component="fieldset">
+            <RadioGroup
+              row
+              name="archived"
+              value={newBook.archived.toString()}
+              onChange={handleArchivedChange}
+            >
+              <FormControlLabel
+                value="false"
+                control={<Radio />}
+                label="Featured"
+              />
+              <FormControlLabel
+                value="true"
+                control={<Radio />}
+                label="Archived"
+              />
+            </RadioGroup>
+          </FormControl>
           <Button
             onClick={handleSubmit}
             variant="contained"

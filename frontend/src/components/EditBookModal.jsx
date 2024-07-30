@@ -7,6 +7,10 @@ import {
   Button,
   IconButton,
   Box,
+  FormControl,
+  RadioGroup,
+  FormControlLabel,
+  Radio,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { useUpdateBook, useDeleteBook } from "../hooks/book";
@@ -35,6 +39,13 @@ const EditBookModal = ({ open, onClose, book }) => {
     }));
   };
 
+  const handleArchivedChange = (e) => {
+    setEditedBook((prevBook) => ({
+      ...prevBook,
+      archived: e.target.value === "true",
+    }));
+  };
+
   const handleUpdate = async () => {
     try {
       if (!editedBook.title || !editedBook.author || !editedBook.description) {
@@ -56,7 +67,6 @@ const EditBookModal = ({ open, onClose, book }) => {
 
   const handleDelete = async () => {
     try {
-      // if (window.confirm("Are you sure you want to delete this book?")) {
       deleteBookMutation.mutate(book.id, token, {
         onSuccess: () => {
           onClose();
@@ -140,6 +150,25 @@ const EditBookModal = ({ open, onClose, book }) => {
             fullWidth
             sx={{ mb: 2 }}
           />
+          <FormControl component="fieldset">
+            <RadioGroup
+              row
+              name="archived"
+              value={editedBook.archived.toString()}
+              onChange={handleArchivedChange}
+            >
+              <FormControlLabel
+                value="false"
+                control={<Radio />}
+                label="Featured"
+              />
+              <FormControlLabel
+                value="true"
+                control={<Radio />}
+                label="Archived"
+              />
+            </RadioGroup>
+          </FormControl>
           <Box
             sx={{ display: "flex", justifyContent: "space-between", gap: 2 }}
           >

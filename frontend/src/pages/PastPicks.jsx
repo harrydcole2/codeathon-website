@@ -1,6 +1,6 @@
 import { useGetBooks } from "../hooks/book";
 import PastBookList from "../components/PastBookList";
-import { Container, CircularProgress, Typography } from "@mui/material";
+import { Container, CircularProgress, Typography, Box } from "@mui/material";
 
 const PastPicks = () => {
   // Fetch archived books
@@ -19,7 +19,20 @@ const PastPicks = () => {
   if (isError) {
     return (
       <Container>
-        <Typography>Error fetching past picks: {error.message}</Typography>
+        <Box
+          sx={{
+            backgroundColor: "#ffeb3b",
+            padding: 2,
+            borderRadius: 1,
+          }}
+        >
+          <Typography fontWeight="bold">
+            {" "}
+            🚧 Our past picks section is currently under maintenance Come back
+            later for more content! 🚧
+          </Typography>
+        </Box>
+        <Typography>Error fetching featured books: {error.message}</Typography>
       </Container>
     );
   }
