@@ -73,9 +73,8 @@ const Featured = () => {
         >
           <Typography fontWeight="bold">
             {" "}
-            🚧 Our online store is currently under maintenance. We are working
-            hard to bring you a new and improved shopping experience. Stay
-            tuned, exciting things are coming soon! 🚧
+            🚧 Our featured books section is currently under maintenance. Come
+            back later for more books! 🚧
           </Typography>
         </Box>
         <Typography>Error fetching featured books: {error.message}</Typography>
