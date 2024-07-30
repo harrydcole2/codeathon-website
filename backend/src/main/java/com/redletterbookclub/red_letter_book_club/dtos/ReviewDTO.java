@@ -10,6 +10,16 @@ public class ReviewDTO {
     private String content;
     private String reviewer;
 
+    public ReviewDTO() {}
+    public ReviewDTO(Long id, Long bookId, Long userId, int rating, String content, String reviewer) {
+        this.id = id;
+        this.bookId = bookId;
+        this.userId = userId;
+        this.rating = rating;
+        this.content = content;
+        this.reviewer = reviewer;
+    }
+
     public Long getId() {
         return id;
     }

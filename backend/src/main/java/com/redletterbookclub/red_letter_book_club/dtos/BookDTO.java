@@ -15,6 +15,21 @@ public class BookDTO {
     private String pictureUrl;
     private List<ReviewDTO> reviews;
 
+    public BookDTO() {}
+
+    public BookDTO(Long id, String title, String author, String description, String isbn, boolean archived, LocalDate datePublished, String genre, String pictureUrl, List<ReviewDTO> reviews) {
+        this.id = id;
+        this.title = title;
+        this.author = author;
+        this.description = description;
+        this.isbn = isbn;
+        this.archived = archived;
+        this.datePublished = datePublished;
+        this.genre = genre;
+        this.pictureUrl = pictureUrl;
+        this.reviews = reviews;
+    }
+
     public Long getId() {
         return id;
     }

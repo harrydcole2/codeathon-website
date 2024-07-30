@@ -7,12 +7,12 @@ const Discussions = () => {
       title: "The Future of AI",
       topicTag: "Technology",
       content:
-        "As AI continues to evolve, what implications will it have on society and the job market?",
+        "As AI continues to evolve, what implications will it have on society and the job market? I believe AI will create more jobs than it displaces, but we need to focus on reskilling the workforce. I believe AI will create more jobs than it displaces, but we need to focus on reskilling the workforce. I believe AI will create more jobs than it displaces, but we need to focus on reskilling the workforce.",
       comments: [
         {
           user: "TechEnthusiast",
           content:
-            "I believe AI will create more jobs than it displaces, but we need to focus on reskilling the workforce.",
+            "I believe AI will create more jobs than it displaces, but we need to focus on reskilling the workforce. I believe AI will create more jobs than it displaces, but we need to focus on reskilling the workforce. I believe AI will create more jobs than it displaces, but we need to focus on reskilling the workforce.",
         },
         {
           user: "AIResearcher",
@@ -84,11 +84,11 @@ const Discussions = () => {
         </Typography>
       </Box>
       <Paper
-        elevation={3}
+        elevation={2}
         sx={{
           mt: 2,
           p: 2,
-          minHeight: "calc(100vh - 100px)",
+          minHeight: "80vh",
           display: "flex",
           flexDirection: "column",
         }}
@@ -99,8 +99,8 @@ const Discussions = () => {
           others. Each discussion focuses on a specific subject, allowing for
           in-depth exploration and diverse perspectives.
         </Typography>
-        <Divider sx={{ mb: 2 }} />
-        <Box sx={{ flexGrow: 1, overflowY: "auto" }}>
+        <Box sx={{ flexGrow: 1, overflowY: "auto", marginTop: 1 }}>
+          {discussionData.length > 0 && <Divider />}
           {discussionData.map((discussion, index) => (
             <DiscussionItem
               key={index}
