@@ -18,10 +18,10 @@ public class Book {
     @Column(nullable = false, length = 100)
     private String author;
 
-    @Column(columnDefinition = "TEXT")
+    @Column(length = 4000)
     private String description;
 
-    @Column(name = "description_quill", columnDefinition = "TEXT")
+    @Column(name = "description_quill", length = 4000)
     private String descriptionQuill;
 
     @Column(length = 20)

@@ -22,7 +22,7 @@ public class Review {
     @Column(nullable = false)
     private int rating;
 
-    @Column(columnDefinition = "TEXT")
+    @Column(length = 4000)
     private String content;
 
     @Column(name = "created_at", updatable = false)

@@ -17,7 +17,6 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/user")
-@CrossOrigin(origins = "http://localhost:8000", allowedHeaders = "*") // TODO: replace with production url in environment
 public class UserController {
 
     @Autowired

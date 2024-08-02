@@ -32,7 +32,7 @@ CREATE TABLE books (
     description_quill TEXT,
     isbn VARCHAR(20),
     picture LONGBLOB,
-    -- picture_url added later
+    picture_url VARCHAR(255),
     archived BOOLEAN NOT NULL,
     date_published DATE,
     genre VARCHAR(255),
@@ -46,7 +46,7 @@ CREATE TABLE storeitems (
     name VARCHAR(100) NOT NULL,
     description TEXT,
     picture LONGBLOB,
-    -- picture_url added later
+    picture_url VARCHAR(255),
     price DECIMAL(10, 2) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
@@ -71,7 +71,7 @@ CREATE TABLE discussions (
     book_id INT,
     user_id INT,
     title VARCHAR(100) NOT NULL,
-    -- topic_tag added later
+    topic_tag VARCHAR(255),
     content TEXT,
     content_quill TEXT,
     archived BOOLEAN DEFAULT FALSE,

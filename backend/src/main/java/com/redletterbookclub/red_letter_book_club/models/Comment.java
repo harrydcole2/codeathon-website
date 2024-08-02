@@ -19,7 +19,7 @@ public class Comment {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @Column(columnDefinition = "TEXT")
+    @Column(length = 4000)
     private String content;
 
     @Column(name = "created_at", updatable = false)

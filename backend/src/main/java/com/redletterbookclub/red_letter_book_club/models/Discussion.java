@@ -25,7 +25,7 @@ public class Discussion {
     @Column(name = "topic_tag")
     private String topicTag;
 
-    @Column(columnDefinition = "TEXT")
+    @Column(length = 4000)
     private String content;
 
     @Column(name = "content_quill", columnDefinition = "TEXT")

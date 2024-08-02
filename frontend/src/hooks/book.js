@@ -46,7 +46,7 @@ const addReviewToBook = async ({ id, newReview, token }) => {
 // Book endpoint hooks
 
 export const useGetBooks = (type) => {
-  return useQuery(["books"], () => getBooks(type));
+  return useQuery(["books", type], () => getBooks(type));
 };
 
 export const useGetBookById = (id) => {
