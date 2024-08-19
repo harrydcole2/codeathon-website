@@ -1,2 +1,7 @@
-# codeathon-website
-A Spring Java and Vite React website a friend and I are going to try to flesh out and deploy within 24hrs
+# Red Letter Bookclub
+
+![image](https://github.com/user-attachments/assets/d9d2d847-0d9a-4768-8747-a207a650ccdb)
+
+This is a Spring Java and Vite React website a friend and I tried to flesh out and deploy within 24hrs. For me, this project was mostly about getting to know the Java Spring Framework and learning how to deploy the website via Azure and Github Actions. I also thought it would be cool to build an app from the ground up and put to use patterns I have learned. Overall, it ended up being a little more intensive than we first imagined because of handling security with JWT and having to change the database to be AzureSQL instead of MySQL because it was easier and cheaper to manage and deploy. But we were very close to getting it in that timeframe if you add all of the hours spent together.
+
+The Red Letter Bookclub site is inspired by my mom, who has a book club of the same name. Each month, she sends her members red envelopes that have the information of the book they are going to read. She loves to read and write and think critically about literature in general. The site showcases Featured books and allows users to rate them; it lists out Archived books that are no longer in use; and it hosts Discussions that users can comment on. There is an About page and a Store page too, both of which are just static content for now. I liked building this project because it is actually going towards a real use-case. In the future and as her following grows, I imagine I will extend the functionality of the site and customize the site design more thoroughly.
